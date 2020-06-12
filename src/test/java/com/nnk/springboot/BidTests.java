@@ -19,7 +19,7 @@ public class BidTests {
 	@Autowired
 	private BidListRepository bidListRepository;
 
-	@Test
+	//TODO @Test
 	public void bidListTest() {
 		BidList bid = new BidList("Account Test", "Type Test", 10d);
 

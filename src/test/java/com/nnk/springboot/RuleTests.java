@@ -19,7 +19,7 @@ public class RuleTests {
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
 
-	@Test
+	//TODO @Test
 	public void ruleTest() {
 		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
