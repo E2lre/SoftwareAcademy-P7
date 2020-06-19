@@ -1,7 +1,10 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.config.SecurityConfig;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,8 +19,11 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
+    private static final Logger logger = LogManager.getLogger(UserController.class);
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SecurityConfig securityConfig;
 
     @RequestMapping("/user/list")
     public String home(Model model)
@@ -32,14 +38,24 @@ public class UserController {
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
+    public String validate(@Valid User user, BindingResult result, Model model)  {
+        logger.info("validate start");
+
         if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
-            return "redirect:/user/list";
+  //              if (securityConfig.isPasswordValid(user.getPassword())){
+                    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                    user.setPassword(encoder.encode(user.getPassword()));
+                    userRepository.save(user);
+                    model.addAttribute("users", userRepository.findAll());
+                    logger.info("validate finish correctly for user : "+user.getUsername());
+                    return "redirect:/user/list";
+    /*            } else {
+
+                    throw new Exception("Incorrect Password format");
+               }
+*/
         }
+        logger.error("validate finish with error for user : "+user.getUsername());
         return "user/add";
     }
 

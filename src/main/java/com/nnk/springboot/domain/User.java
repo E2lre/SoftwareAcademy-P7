@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -10,13 +11,15 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @NotBlank(message = "Username is mandatory")
+    @NotBlank(message = "{user.usermane.mandatory}")
     private String username;
-    @NotBlank(message = "Password is mandatory")
+    @NotBlank(message = "{user.password.mandatory}")
+    //@Pattern(regexp = "\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])(?=\\S*?[@#$%^_&+=])\\S{8,}\\z",message="Incorrect format password")
+    @Pattern(regexp = "\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])(?=\\S*?[@#$%^_&+=])\\S{8,}\\z",message="{user.password.format.incorrect}")
     private String password;
-    @NotBlank(message = "FullName is mandatory")
+    @NotBlank(message = "{user.fullname.mandatory}")
     private String fullname;
-    @NotBlank(message = "Role is mandatory")
+    @NotBlank(message = "{user.role.mandatory}")
     private String role;
 
     public Integer getId() {
@@ -34,6 +37,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public String getPassword() {
         return password;

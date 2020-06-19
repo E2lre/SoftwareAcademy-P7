@@ -3,6 +3,8 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Controller
 public class CurveController {
+    private static final Logger logger = LogManager.getLogger(CurveController.class);
     // TODO: Inject Curve Point service
     @Autowired
     private CurvePointRepository curvePointRepository;
@@ -36,12 +41,17 @@ public class CurveController {
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Curve list
-        //TODO Controles à faire et alimenter les zones
+        logger.info("validate start");
         if (!result.hasErrors()) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            curvePoint.setAsOfDate(timestamp);
+            curvePoint.setCreationDate(timestamp);
             curvePointRepository.save(curvePoint);
             model.addAttribute("curvePoints", curvePointRepository.findAll());
+            logger.info("validate finish correctly for curve ID : "+ curvePoint.getCurveId());
             return "redirect:/curvePoint/list";
         }
+        logger.error("validate finish with error for user : "+ curvePoint.getCurveId());
         return "curvePoint/add";
     }
 
