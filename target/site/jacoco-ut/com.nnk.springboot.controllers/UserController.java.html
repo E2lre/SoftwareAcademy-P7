@@ -34,14 +34,14 @@ import javax.validation.Valid;
 
     @GetMapping(&quot;/user/add&quot;)
     public String addUser(User bid) {
-<span class="nc" id="L37">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L37">        return &quot;user/add&quot;;</span>
     }
 
     @PostMapping(&quot;/user/validate&quot;)
     public String validate(@Valid User user, BindingResult result, Model model)  {
 <span class="fc" id="L42">        logger.info(&quot;validate start&quot;);</span>
 
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
   //              if (securityConfig.isPasswordValid(user.getPassword())){
 <span class="fc" id="L46">                    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
 <span class="fc" id="L47">                    user.setPassword(encoder.encode(user.getPassword()));</span>
@@ -55,8 +55,8 @@ import javax.validation.Valid;
                }
 */
         }
-<span class="nc" id="L58">        logger.error(&quot;validate finish with error for user : &quot;+user.getUsername());</span>
-<span class="nc" id="L59">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L58">        logger.error(&quot;validate finish with error for user : &quot;+user.getUsername());</span>
+<span class="fc" id="L59">        return &quot;user/add&quot;;</span>
     }
 
     @GetMapping(&quot;/user/update/{id}&quot;)
@@ -70,24 +70,24 @@ import javax.validation.Valid;
     @PostMapping(&quot;/user/update/{id}&quot;)
     public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid User user,
                              BindingResult result, Model model) {
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
 <span class="fc" id="L74">            return &quot;user/update&quot;;</span>
         }
 
-<span class="nc" id="L77">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
-<span class="nc" id="L78">        user.setPassword(encoder.encode(user.getPassword()));</span>
-<span class="nc" id="L79">        user.setId(id);</span>
-<span class="nc" id="L80">        userRepository.save(user);</span>
-<span class="nc" id="L81">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
-<span class="nc" id="L82">        return &quot;redirect:/user/list&quot;;</span>
+<span class="fc" id="L77">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L78">        user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L79">        user.setId(id);</span>
+<span class="fc" id="L80">        userRepository.save(user);</span>
+<span class="fc" id="L81">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L82">        return &quot;redirect:/user/list&quot;;</span>
     }
 
     @GetMapping(&quot;/user/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="nc" id="L87">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="nc" id="L88">        userRepository.delete(user);</span>
-<span class="nc" id="L89">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
-<span class="nc" id="L90">        return &quot;redirect:/user/list&quot;;</span>
+<span class="pc" id="L87">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L88">        userRepository.delete(user);</span>
+<span class="fc" id="L89">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L90">        return &quot;redirect:/user/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

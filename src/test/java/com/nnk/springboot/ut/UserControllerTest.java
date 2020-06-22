@@ -62,7 +62,8 @@ public class UserControllerTest {
     //constantes de test
     String fullname = "James Bond";
     String username = "007";
-    String password = "MI6";
+    String password = "Abcdefg0$";
+    String incorrectPassword = "Abc";
     String role = "USER";
     String encryptPasswordConst = "$2a$12$scj6PvgZYRLahntmwOmm/.PnXJjHYK2SpsgsWb6fFbZBr5nWpbmJ6";
 
@@ -99,6 +100,24 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
 
     }
+    @Test
+    public void addUser_getAddUser_redirectIsReturn() throws Exception {
+
+
+        //GIVEN : Give an exiting Person
+
+        //WHEN //THEN return the station
+
+        mockMvc.perform(get("/user/add")
+                .content(asJsonString(user))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/add"));
+    }
+
+
 
     @Test
     public void showUpdateForm_giveAnExistingId_userIsReturn() throws Exception {
@@ -130,7 +149,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
 
     }
- /*   @Test
+   @Test
     public void deleteUser_giveAnExistingId_userIsDelete() throws Exception {
 
 
@@ -138,20 +157,20 @@ public class UserControllerTest {
 
 
         //GIVEN : Give an exiting Person
-        Mockito.when(userRepository.findById(anyInt())).thenThrow(NullPointerException.class);
-        doNothing().when(userRepository).delete(any(User.class));
+ //       Mockito.when(userRepository.findById(anyInt())).thenThrow(NullPointerException.class);
+       Mockito.when(userRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(user));
+       doNothing().when(userRepository).delete(any(User.class));
 
         //WHEN //THEN return the station
         mockMvc.perform(get("/user/delete/1"))
                 .andDo(print())
-                .andExpect(status().isFound());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/user/list"));
 
-    }*/
+    }
 /*------------------------------ Post ------------------------------*/
     @Test
     //TODO A CREUSER : https://blog.codeleak.pl/2014/08/spring-mvc-test-assert-given-model-attribute-global-errors.html
-
-    //TODO ICICICICIC
 
  //   @Import(RequestValidator.class) //https://stackoverflow.com/questions/52001043/how-to-mock-bindingresult-in-spring-boot-test
     public void validate_giveAnInexistingUSER_theCUserIsCreate() throws Exception {
@@ -170,10 +189,14 @@ public class UserControllerTest {
                 .content(asJsonString(user))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .param("fullname", "moi")
-                .param("username", "moi")
-                .param("password", "Abcdefg0$")
+                .param("fullname", fullname)
+                .param("username", username)
+                .param("password", password)
                 .param("role", "USER"))
+/*                .param("fullname", "fullname")
+                .param("username", "user")
+                .param("password", "Abcdefg0$")
+                .param("role", "USER"))*/
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/user/list"));
@@ -191,26 +214,68 @@ public class UserControllerTest {
     }
 
     @Test
-   public void updateUser_giveAnExistingId_userIsUpdate() throws Exception {
+    //TODO A CREUSER : https://blog.codeleak.pl/2014/08/spring-mvc-test-assert-given-model-attribute-global-errors.html
+
+    //   @Import(RequestValidator.class) //https://stackoverflow.com/questions/52001043/how-to-mock-bindingresult-in-spring-boot-test
+    public void validate_giveAnIncorrectFormatPasswaord_errorIsReturn() throws Exception {
 
 
         //GIVEN : Give an exiting Person
+        Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
+        //WHEN //THEN return the station
 
+        mockMvc.perform(post("/user/validate")
+                .content(asJsonString(user))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("fullname", fullname)
+                .param("username", username)
+                .param("password", incorrectPassword)
+                .param("role", "USER"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/add"));
+    }
+
+
+    @Test
+   public void updateUser_giveAnExistingId_userIsUpdate() throws Exception {
 
         //GIVEN : Give an exiting Person
         Mockito.when(passwordEncoder.encode(anyString())).thenReturn(encryptPasswordConst);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
         //WHEN //THEN return the station
-        mockMvc.perform(post("/user/update/1"))
+        mockMvc.perform(post("/user/update/1")
+                .content(asJsonString(user))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("fullname", fullname)
+                .param("username", username)
+                .param("password", password)
+                .param("role", "USER"))
                 .andDo(print())
-                .andExpect(status().isOk());
-
-//                     .content(asJsonString(user))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/user/list"));
     }
+    @Test
+    public void updateUser_giveAnIncorrectPassword_errorIsReturn() throws Exception {
 
+        //GIVEN : Give an exiting Person
+        Mockito.when(passwordEncoder.encode(anyString())).thenReturn(encryptPasswordConst);
+        Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
+        //WHEN //THEN return the station
+        mockMvc.perform(post("/user/update/1")
+                .content(asJsonString(user))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("fullname", fullname)
+                .param("username", username)
+                .param("password", incorrectPassword)
+                .param("role", "USER"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/update"));
+    }
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
