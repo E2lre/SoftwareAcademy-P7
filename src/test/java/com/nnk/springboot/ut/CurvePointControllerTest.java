@@ -1,6 +1,7 @@
 package com.nnk.springboot.ut;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,9 +27,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nnk.springboot.ut.UserControllerTest.asJsonString;
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -36,6 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureTestDatabase
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class CurvePointControllerTest {
     private static final Logger logger = LogManager.getLogger(CurvePointControllerTest.class);
     @Autowired
@@ -46,19 +52,24 @@ public class CurvePointControllerTest {
 
     private CurvePoint curvePoint;
 
+    //constantes de test
+    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    Double idDoubleConst = 1d;
+    int curveIdConst = 1;
+    int idConst = 1;
+
     @BeforeEach
     public void setUpEach() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            Double idDouble = 1d;
+
             //idDouble.doubleValue(1);
             curvePoint = new CurvePoint();
             curvePoint.setAsOfDate(timestamp);
             curvePoint.setCreationDate(timestamp);
-            curvePoint.setCurveId(1);
-            curvePoint.setId(1);
-            curvePoint.setTerm(idDouble);
-            curvePoint.setValue(idDouble);
+            curvePoint.setCurveId(curveIdConst);
+            curvePoint.setId(idConst);
+            curvePoint.setTerm(idDoubleConst);
+            curvePoint.setValue(idDoubleConst);
 
 
     }
@@ -80,7 +91,72 @@ public class CurvePointControllerTest {
                 .andExpect(status().isOk());
 
     }
+    @Test
+    public void addCurvePoint_getAddCurvePoint_redirectIsReturn() throws Exception {
 
+
+        //GIVEN : Give an exiting Person
+
+        //WHEN //THEN return the station
+
+        mockMvc.perform(get("/curvePoint/add")
+                .content(asJsonString(curvePoint))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("curvePoint/add"));
+    }
+//TODO ICICCI AJOUTER LES TEST DES GET
+    @Test
+    public void showUpdateForm_giveAnExistingId_curvePointIsReturn() throws Exception {
+
+
+        //GIVEN : Give an exiting Person
+
+
+        //GIVEN : Give an exiting Person
+        Mockito.when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint));
+        //WHEN //THEN return the station
+        mockMvc.perform(get("/curvePoint/update/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+    @Test
+    public void showUpdateForm_giveAnInExistingId_curvePontIsReturn() throws Exception {
+
+
+        //GIVEN : Give an exiting Person
+
+
+        //GIVEN : Give an exiting Person
+        Mockito.when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint));
+        //WHEN //THEN return the station
+        mockMvc.perform(get("/curvePoint/update/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+    @Test
+    public void deleteUser_giveAnExistingId_curvePointIsDelete() throws Exception {
+
+
+        //GIVEN : Give an exiting Person
+
+
+        //GIVEN : Give an exiting Person
+        //       Mockito.when(userRepository.findById(anyInt())).thenThrow(NullPointerException.class);
+        Mockito.when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint));
+        doNothing().when(curvePointRepository).delete(any(CurvePoint.class));
+
+        //WHEN //THEN return the station
+        mockMvc.perform(get("/curvePoint/delete/1"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/curvePoint/list"));
+
+    }
     /*---------------------------------------- Post CurvePoint-------------------------------*/
     @Test
     //@WithMockUser(roles="USER")
@@ -95,17 +171,81 @@ public class CurvePointControllerTest {
         //Mockito.when(curvePointRepository.save(curvePoint)).thenReturn(curvePoint);
         Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
         //WHEN //THEN return the station
-        mockMvc.perform(post("/curvePoint/validate"))
+        mockMvc.perform(post("/curvePoint/validate")
+                .content(asJsonString(curvePoint))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("curveId", String.valueOf(curveIdConst))
+                .param("term", String.valueOf(idDoubleConst))
+                .param("value", String.valueOf(idDoubleConst)))
                 .andDo(print())
-                .andExpect(status().isOk());
-                //.andExpect(MockMvcResultMatchers.redirectedUrl("/curvePoint/list"));
-                //.andExpect(status().is3xxRedirection());
-                //.andExpect(content().string(containsString("redirect:/curvePoint/list")));
-                //.andExpect(forwardedUrl("redirect:/curvePoint/list"));
-        //TODO ICICICICIC pour test erreur
-//        .andExpect(MockMvcResultMatchers.redirectedUrl("/user/list"))
-//                .andExpect(status().is3xxRedirection());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/curvePoint/list"));
 
+
+    }
+    /*---------------------------------------- Post CurvePoint-------------------------------*/
+    @Test
+    //@WithMockUser(roles="USER")
+    //@WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
+    //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+
+    public void validate_giveAnIncorrectCurveIdFormat_errorIsReturn() throws Exception {
+
+
+        //GIVEN : Give an exiting Person
+
+
+        Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
+        //WHEN //THEN return the station
+        mockMvc.perform(post("/curvePoint/validate")
+                .content(asJsonString(curvePoint))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("curveId", "abc")
+                .param("term", String.valueOf(idDoubleConst))
+                .param("value", String.valueOf(idDoubleConst)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("curvePoint/add"));
+    }
+
+    //TODO ICICCI AJOUTER LES TEST DES POST
+    @Test
+    public void updateCurvePoint_giveAnExistingId_curvePointIsUpdate() throws Exception {
+
+        //GIVEN : Give an exiting Person
+
+        Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
+        //WHEN //THEN return the station
+        mockMvc.perform(post("/curvePoint/update/1")
+                .content(asJsonString(curvePoint))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("curveId", String.valueOf(curveIdConst))
+                .param("term", String.valueOf(idDoubleConst))
+                .param("value", String.valueOf(idDoubleConst)))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/curvePoint/list"));
+    }
+    @Test
+    public void updateCurvePoint_giveAnInexistingId_errorIsReturn() throws Exception {
+
+        //GIVEN : Give an exiting Person
+
+        Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
+        //WHEN //THEN return the station
+        mockMvc.perform(post("/curvePoint/update/1")
+                .content(asJsonString(curvePoint))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("curveId", "abc")
+                .param("term", String.valueOf(idDoubleConst))
+                .param("value", String.valueOf(idDoubleConst)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("curvePoint/update"));
     }
 
 }

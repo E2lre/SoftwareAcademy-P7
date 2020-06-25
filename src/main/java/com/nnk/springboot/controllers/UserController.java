@@ -28,12 +28,15 @@ public class UserController {
     @RequestMapping("/user/list")
     public String home(Model model)
     {
+        logger.info("home start");
         model.addAttribute("users", userRepository.findAll());
+        logger.info("home finish");
         return "user/list";
     }
 
     @GetMapping("/user/add")
     public String addUser(User bid) {
+        logger.info("addUser start/finish");
         return "user/add";
     }
 
@@ -61,16 +64,20 @@ public class UserController {
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        logger.info("showUpdateForm start for id " + id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         user.setPassword("");
         model.addAttribute("user", user);
+        logger.info("showUpdateForm finish");
         return "user/update";
     }
 
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
+        logger.info("updateUser start for id " + id);
         if (result.hasErrors()) {
+            logger.error("updateUser finish with error for user : "+user.getUsername());
             return "user/update";
         }
 
@@ -79,14 +86,17 @@ public class UserController {
         user.setId(id);
         userRepository.save(user);
         model.addAttribute("users", userRepository.findAll());
+        logger.info("updateUser finish");
         return "redirect:/user/list";
     }
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
+        logger.info("deleteUser start for id " + id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());
+        logger.info("delete User finish");
         return "redirect:/user/list";
     }
 }

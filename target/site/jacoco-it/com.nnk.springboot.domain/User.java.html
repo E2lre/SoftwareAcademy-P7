@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton : Tests d'intégration</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+
+@Entity
+@Table(name = &quot;users&quot;)
+<span class="fc" id="L10">public class User {</span>
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+    @NotBlank(message = &quot;{user.usermane.mandatory}&quot;)
+    private String username;
+    @NotBlank(message = &quot;{user.password.mandatory}&quot;)
+    //@Pattern(regexp = &quot;\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])(?=\\S*?[@#$%^_&amp;+=])\\S{8,}\\z&quot;,message=&quot;Incorrect format password&quot;)
+    @Pattern(regexp = &quot;\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])(?=\\S*?[@#$%^_&amp;+=])\\S{8,}\\z&quot;,message=&quot;{user.password.format.incorrect}&quot;)
+    private String password;
+    @NotBlank(message = &quot;{user.fullname.mandatory}&quot;)
+    private String fullname;
+    @NotBlank(message = &quot;{user.role.mandatory}&quot;)
+    private String role;
+
+    public Integer getId() {
+<span class="nc" id="L26">        return id;</span>
+    }
+
+    public void setId(Integer id) {
+<span class="nc" id="L30">        this.id = id;</span>
+<span class="nc" id="L31">    }</span>
+
+    public String getUsername() {
+<span class="nc" id="L34">        return username;</span>
+    }
+
+    public void setUsername(String username) {
+<span class="nc" id="L38">        this.username = username;</span>
+<span class="nc" id="L39">    }</span>
+
+
+    public String getPassword() {
+<span class="nc" id="L43">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="nc" id="L47">        this.password = password;</span>
+<span class="nc" id="L48">    }</span>
+
+    public String getFullname() {
+<span class="nc" id="L51">        return fullname;</span>
+    }
+
+    public void setFullname(String fullname) {
+<span class="nc" id="L55">        this.fullname = fullname;</span>
+<span class="nc" id="L56">    }</span>
+
+    public String getRole() {
+<span class="nc" id="L59">        return role;</span>
+    }
+
+    public void setRole(String role) {
+<span class="nc" id="L63">        this.role = role;</span>
+<span class="nc" id="L64">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

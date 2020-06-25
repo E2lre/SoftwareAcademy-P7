@@ -84,7 +84,8 @@ public class UserControllerTest {
     }
     /*------------------------------ Get ------------------------------*/
     @Test
-    @WithMockUser(roles="USER")
+    //@WithMockUser(roles="USER")
+    //@WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
     //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void home_sendModel_userListIsReturn() throws Exception {
         List<User> userList = new ArrayList<>();
@@ -134,6 +135,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
 
     }
+    //TODO faut il laisser ce test ? ==> Acreuser pour tester le cas non passant
     @Test
     public void showUpdateForm_giveAnInExistingId_userIsReturn() throws Exception {
 

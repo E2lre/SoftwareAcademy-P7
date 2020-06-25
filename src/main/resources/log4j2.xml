@@ -19,10 +19,10 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Logger name="org.hibernate" level="warn" additivity="false">
+ <!--       <Logger name="org.hibernate" level="warn" additivity="false">
             <AppenderRef ref="LogToConsole"/>
             <AppenderRef ref="LogToFile"/>
-        </Logger>
+        </Logger>-->
         <Root level="info">
             <AppenderRef ref="LogToFile"/>
             <AppenderRef ref="LogToConsole"/>

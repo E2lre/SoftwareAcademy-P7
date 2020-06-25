@@ -28,7 +28,7 @@ public class CurvePointTests {
 	//TODO @Test
 
 	//TODO Supprimer ce test historique
-	@Test
+	//@Test
 	public void curvePointTest() {
 		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
 
