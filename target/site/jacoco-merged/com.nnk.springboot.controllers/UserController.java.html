@@ -65,7 +65,7 @@ import javax.validation.Valid;
     @GetMapping(&quot;/user/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
 <span class="fc" id="L67">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
-<span class="pc" id="L68">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L68">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
 <span class="fc" id="L69">        user.setPassword(&quot;&quot;);</span>
 <span class="fc" id="L70">        model.addAttribute(&quot;user&quot;, user);</span>
 <span class="fc" id="L71">        logger.info(&quot;showUpdateForm finish&quot;);</span>
@@ -93,7 +93,7 @@ import javax.validation.Valid;
     @GetMapping(&quot;/user/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
 <span class="fc" id="L95">        logger.info(&quot;deleteUser start for id &quot; + id);</span>
-<span class="pc" id="L96">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L96">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
 <span class="fc" id="L97">        userRepository.delete(user);</span>
 <span class="fc" id="L98">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
 <span class="fc" id="L99">        logger.info(&quot;delete User finish&quot;);</span>

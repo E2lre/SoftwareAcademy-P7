@@ -111,108 +111,132 @@ public class Trade {
 <span class="nc" id="L111">    }</span>
 
     public Timestamp getTradeDate() {
-<span class="nc" id="L114">        return tradeDate;</span>
+        //return tradeDate;
+<span class="nc" id="L115">        Timestamp localTimestamp = tradeDate;</span>
+<span class="nc" id="L116">        return localTimestamp;</span>
     }
 
     public void setTradeDate(Timestamp tradeDate) {
-<span class="nc" id="L118">        this.tradeDate = tradeDate;</span>
-<span class="nc" id="L119">    }</span>
+        //this.tradeDate = tradeDate;
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (tradeDate == null) {</span>
+<span class="nc" id="L122">            this.tradeDate = null;</span>
+        }
+        else {
+<span class="nc" id="L125">            this.tradeDate = new Timestamp(tradeDate.getTime());</span>
+        }
+<span class="nc" id="L127">    }</span>
 
     public String getSecurity() {
-<span class="nc" id="L122">        return security;</span>
+<span class="nc" id="L130">        return security;</span>
     }
 
     public void setSecurity(String security) {
-<span class="nc" id="L126">        this.security = security;</span>
-<span class="nc" id="L127">    }</span>
+<span class="nc" id="L134">        this.security = security;</span>
+<span class="nc" id="L135">    }</span>
 
     public String getStatus() {
-<span class="nc" id="L130">        return status;</span>
+<span class="nc" id="L138">        return status;</span>
     }
 
     public void setStatus(String status) {
-<span class="nc" id="L134">        this.status = status;</span>
-<span class="nc" id="L135">    }</span>
+<span class="nc" id="L142">        this.status = status;</span>
+<span class="nc" id="L143">    }</span>
 
     public String getTrader() {
-<span class="nc" id="L138">        return trader;</span>
+<span class="nc" id="L146">        return trader;</span>
     }
 
     public void setTrader(String trader) {
-<span class="nc" id="L142">        this.trader = trader;</span>
-<span class="nc" id="L143">    }</span>
+<span class="nc" id="L150">        this.trader = trader;</span>
+<span class="nc" id="L151">    }</span>
 
     public String getBook() {
-<span class="nc" id="L146">        return book;</span>
+<span class="nc" id="L154">        return book;</span>
     }
 
     public void setBook(String book) {
-<span class="nc" id="L150">        this.book = book;</span>
-<span class="nc" id="L151">    }</span>
+<span class="nc" id="L158">        this.book = book;</span>
+<span class="nc" id="L159">    }</span>
 
     public String getCreationName() {
-<span class="nc" id="L154">        return creationName;</span>
+<span class="nc" id="L162">        return creationName;</span>
     }
 
     public void setCreationName(String creationName) {
-<span class="nc" id="L158">        this.creationName = creationName;</span>
-<span class="nc" id="L159">    }</span>
+<span class="nc" id="L166">        this.creationName = creationName;</span>
+<span class="nc" id="L167">    }</span>
 
     public Timestamp getCreationDate() {
-<span class="nc" id="L162">        return creationDate;</span>
+        //return creationDate;
+<span class="nc" id="L171">        Timestamp localTimestamp = creationDate;</span>
+<span class="nc" id="L172">        return localTimestamp;</span>
     }
 
     public void setCreationDate(Timestamp creationDate) {
-<span class="nc" id="L166">        this.creationDate = creationDate;</span>
-<span class="nc" id="L167">    }</span>
+        //this.creationDate = creationDate;
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        if (creationDate == null) {</span>
+<span class="nc" id="L178">            this.creationDate = null;</span>
+        }
+        else {
+<span class="nc" id="L181">            this.creationDate = new Timestamp(creationDate.getTime());</span>
+        }
+<span class="nc" id="L183">    }</span>
 
     public String getRevisionName() {
-<span class="nc" id="L170">        return revisionName;</span>
+<span class="nc" id="L186">        return revisionName;</span>
     }
 
     public void setRevisionName(String revisionName) {
-<span class="nc" id="L174">        this.revisionName = revisionName;</span>
-<span class="nc" id="L175">    }</span>
+<span class="nc" id="L190">        this.revisionName = revisionName;</span>
+<span class="nc" id="L191">    }</span>
 
     public Timestamp getRevisionDate() {
-<span class="nc" id="L178">        return revisionDate;</span>
+        //return revisionDate;
+<span class="nc" id="L195">        Timestamp localTimestamp = revisionDate;</span>
+<span class="nc" id="L196">        return localTimestamp;</span>
     }
 
     public void setRevisionDate(Timestamp revisionDate) {
-<span class="nc" id="L182">        this.revisionDate = revisionDate;</span>
-<span class="nc" id="L183">    }</span>
+        //this.revisionDate = revisionDate;
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if (revisionDate == null) {</span>
+<span class="nc" id="L202">            this.revisionDate = null;</span>
+        }
+        else {
+<span class="nc" id="L205">            this.revisionDate = new Timestamp(revisionDate.getTime());</span>
+        }
+<span class="nc" id="L207">    }</span>
 
     public String getDealName() {
-<span class="nc" id="L186">        return dealName;</span>
+<span class="nc" id="L210">        return dealName;</span>
     }
 
     public void setDealName(String dealName) {
-<span class="nc" id="L190">        this.dealName = dealName;</span>
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L214">        this.dealName = dealName;</span>
+<span class="nc" id="L215">    }</span>
 
     public String getDealType() {
-<span class="nc" id="L194">        return dealType;</span>
+<span class="nc" id="L218">        return dealType;</span>
     }
 
     public void setDealType(String dealType) {
-<span class="nc" id="L198">        this.dealType = dealType;</span>
-<span class="nc" id="L199">    }</span>
+<span class="nc" id="L222">        this.dealType = dealType;</span>
+<span class="nc" id="L223">    }</span>
 
     public String getSourceListId() {
-<span class="nc" id="L202">        return sourceListId;</span>
+<span class="nc" id="L226">        return sourceListId;</span>
     }
 
     public void setSourceListId(String sourceListId) {
-<span class="nc" id="L206">        this.sourceListId = sourceListId;</span>
-<span class="nc" id="L207">    }</span>
+<span class="nc" id="L230">        this.sourceListId = sourceListId;</span>
+<span class="nc" id="L231">    }</span>
 
     public String getSide() {
-<span class="nc" id="L210">        return side;</span>
+<span class="nc" id="L234">        return side;</span>
     }
 
     public void setSide(String side) {
-<span class="nc" id="L214">        this.side = side;</span>
-<span class="nc" id="L215">    }</span>
+<span class="nc" id="L238">        this.side = side;</span>
+<span class="nc" id="L239">    }</span>
 
 
 }

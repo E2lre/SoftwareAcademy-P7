@@ -111,11 +111,19 @@ public class Trade {
     }
 
     public Timestamp getTradeDate() {
-        return tradeDate;
+        //return tradeDate;
+        Timestamp localTimestamp = tradeDate;
+        return localTimestamp;
     }
 
     public void setTradeDate(Timestamp tradeDate) {
-        this.tradeDate = tradeDate;
+        //this.tradeDate = tradeDate;
+        if (tradeDate == null) {
+            this.tradeDate = null;
+        }
+        else {
+            this.tradeDate = new Timestamp(tradeDate.getTime());
+        }
     }
 
     public String getSecurity() {
@@ -159,11 +167,19 @@ public class Trade {
     }
 
     public Timestamp getCreationDate() {
-        return creationDate;
+        //return creationDate;
+        Timestamp localTimestamp = creationDate;
+        return localTimestamp;
     }
 
     public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
+        //this.creationDate = creationDate;
+        if (creationDate == null) {
+            this.creationDate = null;
+        }
+        else {
+            this.creationDate = new Timestamp(creationDate.getTime());
+        }
     }
 
     public String getRevisionName() {
@@ -175,11 +191,19 @@ public class Trade {
     }
 
     public Timestamp getRevisionDate() {
-        return revisionDate;
+        //return revisionDate;
+        Timestamp localTimestamp = revisionDate;
+        return localTimestamp;
     }
 
     public void setRevisionDate(Timestamp revisionDate) {
-        this.revisionDate = revisionDate;
+        //this.revisionDate = revisionDate;
+        if (revisionDate == null) {
+            this.revisionDate = null;
+        }
+        else {
+            this.revisionDate = new Timestamp(revisionDate.getTime());
+        }
     }
 
     public String getDealName() {

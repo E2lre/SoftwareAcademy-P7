@@ -7,12 +7,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
-    // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -59,15 +59,25 @@ public class CurvePoint {
     }
 
     public Timestamp getAsOfDate() {
-        return asOfDate;
+        Timestamp localTimestamp = asOfDate;
+        return localTimestamp;
+        //return asOfDate;
     }
 
     public void setAsOfDate(Timestamp asOfDate) {
-        this.asOfDate = asOfDate;
+        //this.asOfDate = asOfDate;
+
+        if (asOfDate == null) {
+            this.asOfDate = null;
+        }
+        else {
+            this.asOfDate = new Timestamp(asOfDate.getTime());
+        }
     }
 
     public Double getTerm() {
         return term;
+
     }
 
     public void setTerm(Double term) {
@@ -84,12 +94,18 @@ public class CurvePoint {
     }
 
     public Timestamp getCreationDate() {
-        return creationDate;
+        //return creationDate;
+        Timestamp localTimestamp = creationDate;
+        return localTimestamp;
     }
 
     public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
+        //this.creationDate = creationDate;
+        if (creationDate == null) {
+            this.creationDate = null;
+        }
+        else {
+            this.creationDate = new Timestamp(creationDate.getTime());
+        }
     }
-
-
 }

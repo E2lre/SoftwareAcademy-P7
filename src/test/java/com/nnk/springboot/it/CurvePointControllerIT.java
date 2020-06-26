@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureTestDatabase
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class CurvePointControllerIT {
     @Autowired
     private MockMvc mockMvc;
@@ -49,7 +49,7 @@ public class CurvePointControllerIT {
     //constantes de test
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     Double idDoubleConst = 1d;
-    int curveIdConst = 1;
+    int curveIdConst = 10;
     int idConst = 1;
 
     @BeforeEach

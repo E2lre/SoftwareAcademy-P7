@@ -117,11 +117,19 @@ public class BidList {
     }
 
     public Timestamp getBidListDate() {
-        return bidListDate;
+        //return bidListDate;
+        Timestamp localTimestamp = bidListDate;
+        return localTimestamp;
     }
 
     public void setBidListDate(Timestamp bidListDate) {
-        this.bidListDate = bidListDate;
+        //this.bidListDate = bidListDate;
+        if (bidListDate == null) {
+            this.bidListDate = null;
+        }
+        else {
+            this.bidListDate = new Timestamp(bidListDate.getTime());
+        }
     }
 
     public String getCommentary() {
@@ -173,11 +181,20 @@ public class BidList {
     }
 
     public Timestamp getCreationDate() {
-        return creationDate;
+        //return creationDate;
+        Timestamp localTimestamp = creationDate;
+        return localTimestamp;
     }
 
     public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
+        //this.creationDate = creationDate;
+        if (creationDate == null) {
+            this.creationDate = null;
+        }
+        else {
+            this.creationDate = new Timestamp(creationDate.getTime());
+        }
+
     }
 
     public String getRevisionName() {
@@ -189,11 +206,19 @@ public class BidList {
     }
 
     public Timestamp getRevisionDate() {
-        return revisionDate;
+        //return revisionDate;
+        Timestamp localTimestamp = revisionDate;
+        return localTimestamp;
     }
 
     public void setRevisionDate(Timestamp revisionDate) {
-        this.revisionDate = revisionDate;
+        //this.revisionDate = revisionDate;
+        if (revisionDate == null) {
+            this.revisionDate = null;
+        }
+        else {
+            this.revisionDate = new Timestamp(revisionDate.getTime());
+        }
     }
 
     public String getDealName() {

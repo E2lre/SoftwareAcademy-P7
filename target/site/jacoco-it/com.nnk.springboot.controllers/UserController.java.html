@@ -42,16 +42,16 @@ import javax.validation.Valid;
 
     @PostMapping(&quot;/user/validate&quot;)
     public String validate(@Valid User user, BindingResult result, Model model)  {
-<span class="nc" id="L45">        logger.info(&quot;validate start&quot;);</span>
+<span class="fc" id="L45">        logger.info(&quot;validate start&quot;);</span>
 
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (!result.hasErrors()) {</span>
   //              if (securityConfig.isPasswordValid(user.getPassword())){
-<span class="nc" id="L49">                    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
-<span class="nc" id="L50">                    user.setPassword(encoder.encode(user.getPassword()));</span>
-<span class="nc" id="L51">                    userRepository.save(user);</span>
-<span class="nc" id="L52">                    model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
-<span class="nc" id="L53">                    logger.info(&quot;validate finish correctly for user : &quot;+user.getUsername());</span>
-<span class="nc" id="L54">                    return &quot;redirect:/user/list&quot;;</span>
+<span class="fc" id="L49">                    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L50">                    user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L51">                    userRepository.save(user);</span>
+<span class="fc" id="L52">                    model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L53">                    logger.info(&quot;validate finish correctly for user : &quot;+user.getUsername());</span>
+<span class="fc" id="L54">                    return &quot;redirect:/user/list&quot;;</span>
     /*            } else {
 
                     throw new Exception(&quot;Incorrect Password format&quot;);
@@ -64,8 +64,8 @@ import javax.validation.Valid;
 
     @GetMapping(&quot;/user/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="nc" id="L67">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
-<span class="nc" id="L68">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L67">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
+<span class="pc" id="L68">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
 <span class="nc" id="L69">        user.setPassword(&quot;&quot;);</span>
 <span class="nc" id="L70">        model.addAttribute(&quot;user&quot;, user);</span>
 <span class="nc" id="L71">        logger.info(&quot;showUpdateForm finish&quot;);</span>
@@ -75,25 +75,25 @@ import javax.validation.Valid;
     @PostMapping(&quot;/user/update/{id}&quot;)
     public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid User user,
                              BindingResult result, Model model) {
-<span class="nc" id="L78">        logger.info(&quot;updateUser start for id &quot; + id);</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L78">        logger.info(&quot;updateUser start for id &quot; + id);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (result.hasErrors()) {</span>
 <span class="nc" id="L80">            logger.error(&quot;updateUser finish with error for user : &quot;+user.getUsername());</span>
 <span class="nc" id="L81">            return &quot;user/update&quot;;</span>
         }
 
-<span class="nc" id="L84">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
-<span class="nc" id="L85">        user.setPassword(encoder.encode(user.getPassword()));</span>
-<span class="nc" id="L86">        user.setId(id);</span>
-<span class="nc" id="L87">        userRepository.save(user);</span>
-<span class="nc" id="L88">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
-<span class="nc" id="L89">        logger.info(&quot;updateUser finish&quot;);</span>
-<span class="nc" id="L90">        return &quot;redirect:/user/list&quot;;</span>
+<span class="fc" id="L84">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L85">        user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L86">        user.setId(id);</span>
+<span class="fc" id="L87">        userRepository.save(user);</span>
+<span class="fc" id="L88">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L89">        logger.info(&quot;updateUser finish&quot;);</span>
+<span class="fc" id="L90">        return &quot;redirect:/user/list&quot;;</span>
     }
 
     @GetMapping(&quot;/user/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="nc" id="L95">        logger.info(&quot;deleteUser start for id &quot; + id);</span>
-<span class="nc" id="L96">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L95">        logger.info(&quot;deleteUser start for id &quot; + id);</span>
+<span class="pc" id="L96">        User user = userRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
 <span class="nc" id="L97">        userRepository.delete(user);</span>
 <span class="nc" id="L98">        model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
 <span class="nc" id="L99">        logger.info(&quot;delete User finish&quot;);</span>

@@ -178,12 +178,12 @@ public class UserControllerTest {
     public void validate_giveAnInexistingUSER_theCUserIsCreate() throws Exception {
 
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an Inexisting Person
 //        BindingResult result = new BindingResult();
 //        Model model = new Model();
         //Mockito.when(curvePointRepository.save(curvePoint)).thenReturn(curvePoint);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
-        //WHEN //THEN return the station
+        //WHEN //THEN return user List
 /*        mockMvc.perform(post("/user/validate"))
                 .andDo(print())
                 .andExpect(status().isOk());*/
