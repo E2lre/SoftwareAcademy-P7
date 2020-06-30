@@ -8,64 +8,67 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = &quot;rating&quot;)
 public class Rating {
-    // TODO: Map columns in data table RATING with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @Column(name=&quot;moodysRating&quot;)
     private String moodysRating;
+    @Column(name=&quot;sandPRating&quot;)
     private String sandPRating;
+    @Column(name=&quot;fitchRating&quot;)
     private String fitchRating;
+    @Column(name=&quot;orderNumber&quot;)
     private Integer orderNumber;
 
 
-<span class="fc" id="L22">   public Rating() {</span>
-<span class="fc" id="L23">    }</span>
-<span class="nc" id="L24">    public Rating(String moodysRating,String sandPRating,String fitchRating,Integer orderNumber) {</span>
-<span class="nc" id="L25">        this.moodysRating = moodysRating;</span>
-<span class="nc" id="L26">        this.sandPRating = sandPRating;</span>
-<span class="nc" id="L27">        this.fitchRating = fitchRating;</span>
-<span class="nc" id="L28">        this.orderNumber = orderNumber;</span>
-<span class="nc" id="L29">   }</span>
+<span class="fc" id="L25">   public Rating() {</span>
+<span class="fc" id="L26">    }</span>
+<span class="nc" id="L27">    public Rating(String moodysRating,String sandPRating,String fitchRating,Integer orderNumber) {</span>
+<span class="nc" id="L28">        this.moodysRating = moodysRating;</span>
+<span class="nc" id="L29">        this.sandPRating = sandPRating;</span>
+<span class="nc" id="L30">        this.fitchRating = fitchRating;</span>
+<span class="nc" id="L31">        this.orderNumber = orderNumber;</span>
+<span class="nc" id="L32">   }</span>
     public Integer getId() {
-<span class="nc" id="L31">        return id;</span>
+<span class="fc" id="L34">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="nc" id="L35">        this.id = id;</span>
-<span class="nc" id="L36">    }</span>
+<span class="fc" id="L38">        this.id = id;</span>
+<span class="fc" id="L39">    }</span>
 
     public String getMoodysRating() {
-<span class="nc" id="L39">        return moodysRating;</span>
+<span class="fc" id="L42">        return moodysRating;</span>
     }
 
     public void setMoodysRating(String moodysRating) {
-<span class="nc" id="L43">        this.moodysRating = moodysRating;</span>
-<span class="nc" id="L44">    }</span>
+<span class="fc" id="L46">        this.moodysRating = moodysRating;</span>
+<span class="fc" id="L47">    }</span>
 
     public String getSandPRating() {
-<span class="nc" id="L47">        return sandPRating;</span>
+<span class="fc" id="L50">        return sandPRating;</span>
     }
 
     public void setSandPRating(String sandPRating) {
-<span class="nc" id="L51">        this.sandPRating = sandPRating;</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L54">        this.sandPRating = sandPRating;</span>
+<span class="fc" id="L55">    }</span>
 
     public String getFitchRating() {
-<span class="nc" id="L55">        return fitchRating;</span>
+<span class="fc" id="L58">        return fitchRating;</span>
     }
 
     public void setFitchRating(String fitchRating) {
-<span class="nc" id="L59">        this.fitchRating = fitchRating;</span>
-<span class="nc" id="L60">    }</span>
+<span class="fc" id="L62">        this.fitchRating = fitchRating;</span>
+<span class="fc" id="L63">    }</span>
 
     public Integer getOrderNumber() {
-<span class="nc" id="L63">        return orderNumber;</span>
+<span class="fc" id="L66">        return orderNumber;</span>
     }
 
     public void setOrderNumber(Integer orderNumber) {
-<span class="nc" id="L67">        this.orderNumber = orderNumber;</span>
-<span class="nc" id="L68">    }</span>
+<span class="fc" id="L70">        this.orderNumber = orderNumber;</span>
+<span class="fc" id="L71">    }</span>
 
 
 

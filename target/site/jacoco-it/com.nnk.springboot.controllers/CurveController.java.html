@@ -23,7 +23,7 @@ import java.util.Date;
 @Controller
 <span class="fc" id="L24">public class CurveController {</span>
 <span class="fc" id="L25">    private static final Logger logger = LogManager.getLogger(CurveController.class);</span>
-    // TODO: Inject Curve Point service
+
     @Autowired
     private CurvePointRepository curvePointRepository;
 
@@ -45,63 +45,60 @@ import java.util.Date;
 
     @PostMapping(&quot;/curvePoint/validate&quot;)
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
-<span class="fc" id="L49">        logger.info(&quot;validate start&quot;);</span>
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L51">            Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
-<span class="fc" id="L52">            curvePoint.setAsOfDate(timestamp);</span>
-<span class="fc" id="L53">            curvePoint.setCreationDate(timestamp);</span>
-<span class="fc" id="L54">            curvePointRepository.save(curvePoint);</span>
-<span class="fc" id="L55">            model.addAttribute(&quot;curvePoints&quot;, curvePointRepository.findAll());</span>
-<span class="fc" id="L56">            logger.info(&quot;validate finish correctly for curve ID : &quot;+ curvePoint.getCurveId());</span>
-<span class="fc" id="L57">            return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L48">        logger.info(&quot;validate start&quot;);</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L50">            Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
+<span class="fc" id="L51">            curvePoint.setAsOfDate(timestamp);</span>
+<span class="fc" id="L52">            curvePoint.setCreationDate(timestamp);</span>
+<span class="fc" id="L53">            curvePointRepository.save(curvePoint);</span>
+<span class="fc" id="L54">            model.addAttribute(&quot;curvePoints&quot;, curvePointRepository.findAll());</span>
+<span class="fc" id="L55">            logger.info(&quot;validate finish correctly for curve ID : &quot;+ curvePoint.getCurveId());</span>
+<span class="fc" id="L56">            return &quot;redirect:/curvePoint/list&quot;;</span>
         }
-<span class="nc" id="L59">        logger.error(&quot;validate finish with error for curvePoint : &quot;+ curvePoint.getCurveId());</span>
-<span class="nc" id="L60">        return &quot;curvePoint/add&quot;;</span>
+<span class="nc" id="L58">        logger.error(&quot;validate finish with error for curvePoint : &quot;+ curvePoint.getCurveId());</span>
+<span class="nc" id="L59">        return &quot;curvePoint/add&quot;;</span>
     }
 
     @GetMapping(&quot;/curvePoint/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
 
-<span class="fc" id="L67">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
-<span class="fc" id="L68">        CurvePoint curvePoint = curvePointRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id));</span>
-<span class="fc" id="L69">        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</span>
-<span class="fc" id="L70">        logger.info(&quot;showUpdateForm finish&quot;);</span>
-<span class="fc" id="L71">        return &quot;curvePoint/update&quot;;</span>
+<span class="fc" id="L65">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
+<span class="fc" id="L66">        CurvePoint curvePoint = curvePointRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id));</span>
+<span class="fc" id="L67">        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</span>
+<span class="fc" id="L68">        logger.info(&quot;showUpdateForm finish&quot;);</span>
+<span class="fc" id="L69">        return &quot;curvePoint/update&quot;;</span>
     }
 
     @PostMapping(&quot;/curvePoint/update/{id}&quot;)
     public String updateCurvePoint(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
-<span class="fc" id="L78">        logger.info(&quot;updateCurvePoint start for id &quot; + id);</span>
+<span class="fc" id="L75">        logger.info(&quot;updateCurvePoint start for id &quot; + id);</span>
 
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L81">            logger.error(&quot;updateCurvePoint finish with error for curvePoint : &quot;+curvePoint.getCurveId());</span>
-<span class="nc" id="L82">            return &quot;curvePoint/update&quot;;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L78">            logger.error(&quot;updateCurvePoint finish with error for curvePoint : &quot;+curvePoint.getCurveId());</span>
+<span class="nc" id="L79">            return &quot;curvePoint/update&quot;;</span>
         }
 
-<span class="fc" id="L85">        Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
-<span class="fc" id="L86">        curvePoint.setAsOfDate(timestamp);</span>
-<span class="fc" id="L87">        curvePoint.setCreationDate(timestamp);</span>
-<span class="fc" id="L88">        curvePointRepository.save(curvePoint);</span>
+<span class="fc" id="L82">        Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
+<span class="fc" id="L83">        curvePoint.setAsOfDate(timestamp);</span>
+<span class="fc" id="L84">        curvePoint.setCreationDate(timestamp);</span>
+<span class="fc" id="L85">        curvePointRepository.save(curvePoint);</span>
 
-<span class="fc" id="L90">        model.addAttribute(&quot;curvePoints&quot;, curvePointRepository.findAll());</span>
-<span class="fc" id="L91">        logger.info(&quot;updateCurvePoint finish&quot;);</span>
+<span class="fc" id="L87">        model.addAttribute(&quot;curvePoints&quot;, curvePointRepository.findAll());</span>
+<span class="fc" id="L88">        logger.info(&quot;updateCurvePoint finish&quot;);</span>
 
-<span class="fc" id="L93">        return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L90">        return &quot;redirect:/curvePoint/list&quot;;</span>
     }
 
     @GetMapping(&quot;/curvePoint/delete/{id}&quot;)
     public String deleteCurvePoint(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
-<span class="fc" id="L99">        logger.info(&quot;deleteCurvePoint start for id &quot; + id);</span>
-<span class="pc" id="L100">        CurvePoint curvePoint = curvePointRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id));</span>
-<span class="nc" id="L101">        curvePointRepository.delete(curvePoint);</span>
-<span class="nc" id="L102">        model.addAttribute(&quot;curvePoints&quot;, curvePointRepository.findAll());</span>
-<span class="nc" id="L103">        logger.info(&quot;deleteCurvePoint finish&quot;);</span>
-<span class="nc" id="L104">        return &quot;redirect:/curvePoint/list&quot;;</span>
+
+<span class="fc" id="L96">        logger.info(&quot;deleteCurvePoint start for id &quot; + id);</span>
+<span class="pc" id="L97">        CurvePoint curvePoint = curvePointRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id));</span>
+<span class="nc" id="L98">        curvePointRepository.delete(curvePoint);</span>
+<span class="nc" id="L99">        model.addAttribute(&quot;curvePoints&quot;, curvePointRepository.findAll());</span>
+<span class="nc" id="L100">        logger.info(&quot;deleteCurvePoint finish&quot;);</span>
+<span class="nc" id="L101">        return &quot;redirect:/curvePoint/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

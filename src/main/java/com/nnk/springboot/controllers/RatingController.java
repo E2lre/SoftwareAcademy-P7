@@ -29,7 +29,6 @@ public class RatingController {
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
-        // TODO: find all Rating, add to model
         logger.info("home start");
         model.addAttribute("rating", ratingRepository.findAll());
         logger.info("home finish");
@@ -43,10 +42,9 @@ public class RatingController {
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
+
         logger.info("validate start");
         if (!result.hasErrors()) {
-//TODO alimenter rating
             ratingRepository.save(rating);
             model.addAttribute("rating", ratingRepository.findAll());
             logger.info("validate finish correctly for Order : "+ rating.getOrderNumber());
@@ -58,7 +56,7 @@ public class RatingController {
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+
         logger.info("showUpdateForm start for id " + id);
         try {
             Rating rating = ratingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
@@ -66,7 +64,7 @@ public class RatingController {
             logger.info("showUpdateForm finish");
             return "rating/update";
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage());
             model.addAttribute("errorMsg", e.getMessage());
             return "error";
         }
@@ -75,13 +73,35 @@ public class RatingController {
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+
+        logger.info("updateRating start for id " + id);
+
+        if (result.hasErrors()) {
+            logger.error("updateRating finish with error for curvePoint : "+rating.getOrderNumber());
+            return "rating/update";
+        }
+
+        ratingRepository.save(rating);
+
+        model.addAttribute("ratings", ratingRepository.findAll());
+        logger.info("updateRating finish");
+
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        return "redirect:/rating/list";
+        logger.info("deleteRating start for id " + id);
+        try {
+            Rating rating = ratingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
+            ratingRepository.delete(rating);
+            model.addAttribute("ratings", ratingRepository.findAll());
+            logger.info("deleteRating finish");
+            return "redirect:/rating/list";
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            model.addAttribute("errorMsg", e.getMessage());
+            return "error";
+        }
     }
 }

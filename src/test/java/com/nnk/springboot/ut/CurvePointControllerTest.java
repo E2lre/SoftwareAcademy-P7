@@ -81,11 +81,10 @@ public class CurvePointControllerTest {
     public void home_sendModel_curvepointListIsReturn() throws Exception {
         List<CurvePoint> curvePointList = new ArrayList<>();
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting curvePoint
         curvePointList.add(curvePoint);
         Mockito.when(curvePointRepository.findAll()).thenReturn(curvePointList);
-        //WHEN //THEN return the station
-        //mockMvc.perform(get("/curvePoint/list").with(csrf()))
+        //WHEN //THEN return the curvePoint List
         mockMvc.perform(get("/curvePoint/list"))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -95,9 +94,9 @@ public class CurvePointControllerTest {
     public void addCurvePoint_getAddCurvePoint_redirectIsReturn() throws Exception {
 
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting curvePoint
 
-        //WHEN //THEN return the station
+        //WHEN //THEN return the curvepoint
 
         mockMvc.perform(get("/curvePoint/add")
                 .content(asJsonString(curvePoint))
@@ -111,18 +110,15 @@ public class CurvePointControllerTest {
     @Test
     public void showUpdateForm_giveAnExistingId_curvePointIsReturn() throws Exception {
 
-
-        //GIVEN : Give an exiting Person
-
-
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting CurvePoint
         Mockito.when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint));
-        //WHEN //THEN return the station
+        //WHEN //THEN return the CurvePoint
         mockMvc.perform(get("/curvePoint/update/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
 
     }
+    //TODO Faut il laisser ce test ? il doit être couvert par la partie integ à vérifier
     @Test
     public void showUpdateForm_giveAnInExistingId_curvePontIsReturn() throws Exception {
 
@@ -141,16 +137,12 @@ public class CurvePointControllerTest {
     @Test
     public void deleteUser_giveAnExistingId_curvePointIsDelete() throws Exception {
 
-
-        //GIVEN : Give an exiting Person
-
-
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting curvePoint
         //       Mockito.when(userRepository.findById(anyInt())).thenThrow(NullPointerException.class);
         Mockito.when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint));
         doNothing().when(curvePointRepository).delete(any(CurvePoint.class));
 
-        //WHEN //THEN return the station
+        //WHEN //THEN return list
         mockMvc.perform(get("/curvePoint/delete/1"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
@@ -166,11 +158,11 @@ public class CurvePointControllerTest {
     public void validate_giveAnInexistingCurvePoint_theCurvePointIsCreate() throws Exception {
 
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting CurvePoint
 
         //Mockito.when(curvePointRepository.save(curvePoint)).thenReturn(curvePoint);
         Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
-        //WHEN //THEN return the station
+        //WHEN //THEN return the list
         mockMvc.perform(post("/curvePoint/validate")
                 .content(asJsonString(curvePoint))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -193,11 +185,11 @@ public class CurvePointControllerTest {
     public void validate_giveAnIncorrectCurveIdFormat_errorIsReturn() throws Exception {
 
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting CurvePoint
 
 
         Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
-        //WHEN //THEN return the station
+        //WHEN //THEN return the add page
         mockMvc.perform(post("/curvePoint/validate")
                 .content(asJsonString(curvePoint))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -214,10 +206,10 @@ public class CurvePointControllerTest {
     @Test
     public void updateCurvePoint_giveAnExistingId_curvePointIsUpdate() throws Exception {
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting CurvePoint
 
         Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
-        //WHEN //THEN return the station
+        //WHEN //THEN return the list
         mockMvc.perform(post("/curvePoint/update/1")
                 .content(asJsonString(curvePoint))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -230,12 +222,12 @@ public class CurvePointControllerTest {
                 .andExpect(view().name("redirect:/curvePoint/list"));
     }
     @Test
-    public void updateCurvePoint_giveAnInexistingId_errorIsReturn() throws Exception {
+    public void updateCurvePoint_giveAnIncorrectId_errorIsReturn() throws Exception {
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting Curvepoint
 
         Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
-        //WHEN //THEN return the station
+        //WHEN //THEN return the update page
         mockMvc.perform(post("/curvePoint/update/1")
                 .content(asJsonString(curvePoint))
                 .contentType(MediaType.APPLICATION_JSON)

@@ -72,7 +72,7 @@ public class CurvePointControllerIT {
     @Test
     @WithMockUser(roles="USER")
     public void showUpdateForm_giveAnExistingId_curvepointIsReturn(){
-        //GIVEN : put an id in empty data base
+        //GIVEN : put an id in a not empty data base
             curvePointRepository.save(curvePoint);
         //WHEN call an existing ID
         // THEN return is OK
@@ -172,7 +172,7 @@ public class CurvePointControllerIT {
     }
 
     @Test
-    public void updateCurvePoint_giveAnInexistingId_curvePointsCreated() throws Exception {
+    public void updateCurvePoint_giveAnInexistingId_errorIsReturn() throws Exception {
 
         //GIVEN : Data base is Empty
 

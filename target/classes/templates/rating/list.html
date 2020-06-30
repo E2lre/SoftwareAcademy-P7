@@ -47,9 +47,9 @@
 				<td th:text="${rating.orderNumber}"></td>
 				<td style="width: 15%" class="text-center">
 					<a th:href="@{/rating/update/{id}(id=${rating.id})}">Edit</a>&nbsp;|&nbsp;
-					<a th:href="@{/rating/delete/{id}(id=${rating.id})}">Delete</a>
+					<a th:href="@{/rating/delete/{id}(id=${rating.id})}" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
 				</td>
-			</tr>-->
+			</tr>
 			</tbody>
 		</table>
 	</div>
