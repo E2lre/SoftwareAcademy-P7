@@ -1,6 +1,12 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.repositories.RatingRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,15 +16,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
 
 @Controller
 public class RatingController {
-    // TODO: Inject Rating service
+    private static final Logger logger = LogManager.getLogger(RatingController.class);
+
+    @Autowired
+    private RatingRepository ratingRepository;
+
 
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
         // TODO: find all Rating, add to model
+        logger.info("home start");
+        model.addAttribute("rating", ratingRepository.findAll());
+        logger.info("home finish");
         return "rating/list";
     }
 
@@ -30,13 +44,32 @@ public class RatingController {
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
+        logger.info("validate start");
+        if (!result.hasErrors()) {
+//TODO alimenter rating
+            ratingRepository.save(rating);
+            model.addAttribute("rating", ratingRepository.findAll());
+            logger.info("validate finish correctly for Order : "+ rating.getOrderNumber());
+            return "redirect:/rating/list";
+        }
+        logger.error("validate finish with error for rating : "+ rating.getOrderNumber());
         return "rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
-        return "rating/update";
+        logger.info("showUpdateForm start for id " + id);
+        try {
+            Rating rating = ratingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
+            model.addAttribute("rating", rating);
+            logger.info("showUpdateForm finish");
+            return "rating/update";
+        } catch (Exception e) {
+            logger.error(e);
+            model.addAttribute("errorMsg", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/rating/update/{id}")

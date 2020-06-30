@@ -23,7 +23,7 @@ import java.util.Date;
 @Controller
 public class CurveController {
     private static final Logger logger = LogManager.getLogger(CurveController.class);
-    // TODO: Inject Curve Point service
+
     @Autowired
     private CurvePointRepository curvePointRepository;
 
