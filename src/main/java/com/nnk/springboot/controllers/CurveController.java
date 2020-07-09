@@ -80,7 +80,7 @@ public class CurveController {
         }
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        curvePoint.setAsOfDate(timestamp);
+        //curvePoint.setAsOfDate(timestamp);
         curvePoint.setCreationDate(timestamp);
         curvePointRepository.save(curvePoint);
 
