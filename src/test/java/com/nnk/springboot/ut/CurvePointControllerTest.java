@@ -75,9 +75,7 @@ public class CurvePointControllerTest {
     }
     /*---------------------------------------- GET CurvePoint-------------------------------*/
     @Test
-    //@WithMockUser(roles="USER")
     @WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
-    //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void home_sendModel_curvepointListIsReturn() throws Exception {
         List<CurvePoint> curvePointList = new ArrayList<>();
 
@@ -106,7 +104,7 @@ public class CurvePointControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("curvePoint/add"));
     }
-//TODO ICICCI AJOUTER LES TEST DES GET
+
     @Test
     public void showUpdateForm_giveAnExistingId_curvePointIsReturn() throws Exception {
 
@@ -118,7 +116,7 @@ public class CurvePointControllerTest {
                 .andExpect(status().isOk());
 
     }
-    //TODO Faut il laisser ce test ? il doit être couvert par la partie integ à vérifier
+
     @Test
     public void showUpdateForm_giveAnInExistingId_curvePontIsReturn() throws Exception {
 
@@ -202,7 +200,7 @@ public class CurvePointControllerTest {
                 .andExpect(view().name("curvePoint/add"));
     }
 
-    //TODO ICICCI AJOUTER LES TEST DES POST
+
     @Test
     public void updateCurvePoint_giveAnExistingId_curvePointIsUpdate() throws Exception {
 

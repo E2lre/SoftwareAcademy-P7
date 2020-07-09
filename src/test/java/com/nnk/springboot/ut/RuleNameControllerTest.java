@@ -87,7 +87,7 @@ public class RuleNameControllerTest {
 
     }
     @Test
-    public void addRating_getAddRuleName_redirectIsReturn() throws Exception {
+    public void addRuleName_getAddRuleName_redirectIsReturn() throws Exception {
 
 
         //GIVEN : Give an exiting ruleName

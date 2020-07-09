@@ -1,9 +1,9 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,LoginController,41,3,0,0,12,1,3,1,3,1
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,HomeController,4,3,0,0,2,1,2,1,2,1
-spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,CurveController,71,153,2,2,14,27,4,8,2,8
+spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,CurveController,71,150,2,2,14,26,4,8,2,8
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,UserController,93,135,2,2,18,23,4,8,2,8
-spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,TradeController,12,3,0,0,6,1,6,1,6,1
+spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,TradeController,71,150,2,2,14,26,4,8,2,8
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,RuleNameController,90,138,2,2,17,26,4,8,2,8
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,BidListController,12,3,0,0,6,1,6,1,6,1
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.controllers,RatingController,90,138,2,2,17,26,4,8,2,8
@@ -11,7 +11,7 @@ spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.services,MyAppUse
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.config,MessageConfig,0,25,0,0,0,8,0,3,0,3
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.config,SecurityConfig,0,81,0,0,0,15,0,3,0,3
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.domain,BidList,202,3,6,0,80,2,48,1,45,1
-spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.domain,Trade,192,3,6,0,76,2,46,1,43,1
+spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.domain,Trade,87,108,4,2,38,40,19,28,16,28
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.domain,User,0,38,0,0,0,16,0,11,0,11
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.domain,Rating,15,38,0,0,6,17,1,11,1,11
 spring-boot-skeleton : Tests d'intégration,com.nnk.springboot.domain,CurvePoint,20,61,2,2,7,24,3,13,1,13

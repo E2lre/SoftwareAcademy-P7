@@ -1,3 +1,4 @@
+com\nnk\springboot\it\TradeControllerIT.class
 com\nnk\springboot\it\UserControllerIT.class
 com\nnk\springboot\PasswordEncodeTest.class
 com\nnk\springboot\ut\RuleNameControllerTest.class
@@ -5,6 +6,7 @@ com\nnk\springboot\it\RuleNameControllerIT.class
 com\nnk\springboot\ut\RatingControllerTest.class
 com\nnk\springboot\RatingTests.class
 com\nnk\springboot\ut\CurvePointTests.class
+com\nnk\springboot\ut\TradeControllerTest.class
 com\nnk\springboot\RuleTests.class
 com\nnk\springboot\ut\CurvePointControllerTest.class
 com\nnk\springboot\it\RatingControllerIT.class
