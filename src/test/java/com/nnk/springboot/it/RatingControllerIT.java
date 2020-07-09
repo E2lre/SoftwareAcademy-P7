@@ -93,7 +93,7 @@ public class RatingControllerIT {
     }
 
     @Test
-    public void deleteUser_giveAnInxistingId_errorIsReturn() throws Exception {
+    public void deleteRating_giveAnInxistingId_errorIsReturn() throws Exception {
 
 
         //GIVEN : Data base is Empty
@@ -116,9 +116,9 @@ public class RatingControllerIT {
         ratingList = ratingRepository.findAll();
 
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting rating
 
-        //WHEN //THEN return the station
+        //WHEN //THEN return the rating
         mockMvc.perform(post("/rating/validate")
                 .content(asJsonString(rating))
                 .contentType(MediaType.APPLICATION_JSON)

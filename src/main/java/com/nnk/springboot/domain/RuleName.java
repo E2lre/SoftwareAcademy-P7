@@ -12,11 +12,19 @@ public class RuleName {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @Column(name="name")
+    @NotBlank(message = "{rulename.name.mandatory}")
     private String name;
+    @Column(name="description")
+    @NotBlank(message = "{rulename.description.mandatory}")
     private String description;
+    @Column(name="json")
     private String json;
+    @Column(name="template")
     private String template;
+    @Column(name="sqlStr")
     private String sqlStr;
+    @Column(name="sqlPart")
     private String sqlPart;
 
     public RuleName() {

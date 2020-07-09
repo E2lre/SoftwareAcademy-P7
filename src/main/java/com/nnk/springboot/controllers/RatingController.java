@@ -37,6 +37,7 @@ public class RatingController {
 
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
+        logger.info("Start / finish");
         return "rating/add";
     }
 
@@ -93,7 +94,7 @@ public class RatingController {
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         logger.info("deleteRating start for id " + id);
         try {
-            Rating rating = ratingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
+            Rating rating = ratingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
             ratingRepository.delete(rating);
             model.addAttribute("ratings", ratingRepository.findAll());
             logger.info("deleteRating finish");

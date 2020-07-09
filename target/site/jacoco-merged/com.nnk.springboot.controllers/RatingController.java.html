@@ -37,36 +37,37 @@ import java.sql.Timestamp;
 
     @GetMapping(&quot;/rating/add&quot;)
     public String addRatingForm(Rating rating) {
-<span class="fc" id="L40">        return &quot;rating/add&quot;;</span>
+<span class="fc" id="L40">        logger.info(&quot;Start / finish&quot;);</span>
+<span class="fc" id="L41">        return &quot;rating/add&quot;;</span>
     }
 
     @PostMapping(&quot;/rating/validate&quot;)
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
 
-<span class="fc" id="L46">        logger.info(&quot;validate start&quot;);</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L48">            ratingRepository.save(rating);</span>
-<span class="fc" id="L49">            model.addAttribute(&quot;rating&quot;, ratingRepository.findAll());</span>
-<span class="fc" id="L50">            logger.info(&quot;validate finish correctly for Order : &quot;+ rating.getOrderNumber());</span>
-<span class="fc" id="L51">            return &quot;redirect:/rating/list&quot;;</span>
+<span class="fc" id="L47">        logger.info(&quot;validate start&quot;);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L49">            ratingRepository.save(rating);</span>
+<span class="fc" id="L50">            model.addAttribute(&quot;rating&quot;, ratingRepository.findAll());</span>
+<span class="fc" id="L51">            logger.info(&quot;validate finish correctly for Order : &quot;+ rating.getOrderNumber());</span>
+<span class="fc" id="L52">            return &quot;redirect:/rating/list&quot;;</span>
         }
-<span class="fc" id="L53">        logger.error(&quot;validate finish with error for rating : &quot;+ rating.getOrderNumber());</span>
-<span class="fc" id="L54">        return &quot;rating/add&quot;;</span>
+<span class="fc" id="L54">        logger.error(&quot;validate finish with error for rating : &quot;+ rating.getOrderNumber());</span>
+<span class="fc" id="L55">        return &quot;rating/add&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
 
-<span class="fc" id="L60">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
+<span class="fc" id="L61">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
         try {
-<span class="fc" id="L62">            Rating rating = ratingRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id));</span>
-<span class="fc" id="L63">            model.addAttribute(&quot;rating&quot;, rating);</span>
-<span class="fc" id="L64">            logger.info(&quot;showUpdateForm finish&quot;);</span>
-<span class="fc" id="L65">            return &quot;rating/update&quot;;</span>
-<span class="fc" id="L66">        } catch (Exception e) {</span>
-<span class="fc" id="L67">            logger.error(e.getMessage());</span>
-<span class="fc" id="L68">            model.addAttribute(&quot;errorMsg&quot;, e.getMessage());</span>
-<span class="fc" id="L69">            return &quot;error&quot;;</span>
+<span class="fc" id="L63">            Rating rating = ratingRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id));</span>
+<span class="fc" id="L64">            model.addAttribute(&quot;rating&quot;, rating);</span>
+<span class="fc" id="L65">            logger.info(&quot;showUpdateForm finish&quot;);</span>
+<span class="fc" id="L66">            return &quot;rating/update&quot;;</span>
+<span class="fc" id="L67">        } catch (Exception e) {</span>
+<span class="fc" id="L68">            logger.error(e.getMessage());</span>
+<span class="fc" id="L69">            model.addAttribute(&quot;errorMsg&quot;, e.getMessage());</span>
+<span class="fc" id="L70">            return &quot;error&quot;;</span>
         }
     }
 
@@ -74,34 +75,34 @@ import java.sql.Timestamp;
     public String updateRating(@PathVariable(&quot;id&quot;) Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
 
-<span class="fc" id="L77">        logger.info(&quot;updateRating start for id &quot; + id);</span>
+<span class="fc" id="L78">        logger.info(&quot;updateRating start for id &quot; + id);</span>
 
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L80">            logger.error(&quot;updateRating finish with error for curvePoint : &quot;+rating.getOrderNumber());</span>
-<span class="fc" id="L81">            return &quot;rating/update&quot;;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L81">            logger.error(&quot;updateRating finish with error for curvePoint : &quot;+rating.getOrderNumber());</span>
+<span class="fc" id="L82">            return &quot;rating/update&quot;;</span>
         }
 
-<span class="fc" id="L84">        ratingRepository.save(rating);</span>
+<span class="fc" id="L85">        ratingRepository.save(rating);</span>
 
-<span class="fc" id="L86">        model.addAttribute(&quot;ratings&quot;, ratingRepository.findAll());</span>
-<span class="fc" id="L87">        logger.info(&quot;updateRating finish&quot;);</span>
+<span class="fc" id="L87">        model.addAttribute(&quot;ratings&quot;, ratingRepository.findAll());</span>
+<span class="fc" id="L88">        logger.info(&quot;updateRating finish&quot;);</span>
 
-<span class="fc" id="L89">        return &quot;redirect:/rating/list&quot;;</span>
+<span class="fc" id="L90">        return &quot;redirect:/rating/list&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/delete/{id}&quot;)
     public String deleteRating(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L94">        logger.info(&quot;deleteRating start for id &quot; + id);</span>
+<span class="fc" id="L95">        logger.info(&quot;deleteRating start for id &quot; + id);</span>
         try {
-<span class="fc" id="L96">            Rating rating = ratingRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id));</span>
-<span class="fc" id="L97">            ratingRepository.delete(rating);</span>
-<span class="fc" id="L98">            model.addAttribute(&quot;ratings&quot;, ratingRepository.findAll());</span>
-<span class="fc" id="L99">            logger.info(&quot;deleteRating finish&quot;);</span>
-<span class="fc" id="L100">            return &quot;redirect:/rating/list&quot;;</span>
-<span class="fc" id="L101">        } catch (Exception e) {</span>
-<span class="fc" id="L102">            logger.error(e.getMessage());</span>
-<span class="fc" id="L103">            model.addAttribute(&quot;errorMsg&quot;, e.getMessage());</span>
-<span class="fc" id="L104">            return &quot;error&quot;;</span>
+<span class="fc" id="L97">            Rating rating = ratingRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id));</span>
+<span class="fc" id="L98">            ratingRepository.delete(rating);</span>
+<span class="fc" id="L99">            model.addAttribute(&quot;ratings&quot;, ratingRepository.findAll());</span>
+<span class="fc" id="L100">            logger.info(&quot;deleteRating finish&quot;);</span>
+<span class="fc" id="L101">            return &quot;redirect:/rating/list&quot;;</span>
+<span class="fc" id="L102">        } catch (Exception e) {</span>
+<span class="fc" id="L103">            logger.error(e.getMessage());</span>
+<span class="fc" id="L104">            model.addAttribute(&quot;errorMsg&quot;, e.getMessage());</span>
+<span class="fc" id="L105">            return &quot;error&quot;;</span>
         }
     }
 }

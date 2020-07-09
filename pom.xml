@@ -103,6 +103,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 		<!-- add E2lre for @NotBlank-->
 		<!--		<dependency>
                     <groupId>javax.validation</groupId>
@@ -139,11 +144,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>-->
 		<!--ajout de Jasypt-->
-		<dependency>
-			<groupId>com.github.ulisesbocchio</groupId>
-			<artifactId>jasypt-spring-boot-starter</artifactId>
-			<version>2.1.1</version>
-		</dependency>
+
 
 	</dependencies>
 	<!-- ******************************************************************* -->
