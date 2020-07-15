@@ -30,7 +30,7 @@ public class TradeController {
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
+
         logger.info("home start");
         model.addAttribute("trades", tradeRepository.findAll());
         logger.info("home finish");
@@ -46,7 +46,7 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
+
         logger.info("validate start");
         if (!result.hasErrors()) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -57,15 +57,14 @@ public class TradeController {
             logger.info("validate finish correctly for trade ID : "+ trade.getTradeId());
             return "redirect:/trade/list";
         }
-        logger.error("validate finish with error for curvePoint : "+ trade.getTradeId());
+        logger.error("validate finish with error for Trade : "+ trade.getTradeId());
         return "trade/add";
 
     }
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
-        logger.info("showUpdateForm start for id " + id);
+         logger.info("showUpdateForm start for id " + id);
         Trade trade = tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         model.addAttribute("trade", trade);
         logger.info("showUpdateForm finish");
@@ -75,8 +74,7 @@ public class TradeController {
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-        logger.info(" start for id " + id);
+         logger.info(" start for id " + id);
 
         if (result.hasErrors()) {
             logger.error("updateTrade finish with error for trade : "+trade.getTradeId());
@@ -84,7 +82,7 @@ public class TradeController {
         }
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        //trade.setCreationDate(timestamp);
+        trade.setTradeId(id);
         trade.setRevisionDate(timestamp);
         tradeRepository.save(trade);
 
@@ -97,7 +95,6 @@ public class TradeController {
 
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
         logger.info(" start for id " + id);
         Trade trade = tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         tradeRepository.delete(trade);

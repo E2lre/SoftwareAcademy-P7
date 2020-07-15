@@ -78,7 +78,7 @@ public class RatingController {
         logger.info("updateRating start for id " + id);
 
         if (result.hasErrors()) {
-            logger.error("updateRating finish with error for curvePoint : "+rating.getOrderNumber());
+            logger.error("updateRating finish with error for rating : "+rating.getOrderNumber());
             return "rating/update";
         }
 

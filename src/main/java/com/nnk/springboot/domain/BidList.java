@@ -59,8 +59,8 @@ public class BidList {
     private String dealName;
     @Column(name="dealType")
     private String dealType;
-    @Column(name="sourceLListId")
-    private String sourceLListId;
+    @Column(name="sourceListId")
+    private String sourceListId;
     @Column(name="side")
     private String side;
 
@@ -260,12 +260,12 @@ public class BidList {
         this.dealType = dealType;
     }
 
-    public String getSourceLListId() {
-        return sourceLListId;
+    public String getSourceListId() {
+        return sourceListId;
     }
 
-    public void setSourceLListId(String sourceLListId) {
-        this.sourceLListId = sourceLListId;
+    public void setSourceListId(String sourceLListId) {
+        this.sourceListId = sourceListId;
     }
 
     public String getSide() {

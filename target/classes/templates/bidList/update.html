@@ -9,14 +9,53 @@
 <body>
 <div class="container">
 	<div class="row">
+		<div class="col-6">
+			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
+			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
+			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
+			<a href="/ruleName/list">Rule</a>
+		</div>
+		<div class="col-6 text-right">
+			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+			<form th:action="@{/app-logout}" method="POST">
+				<input type="submit" value="Logout"/>
+			</form>
+		</div>
+	</div>
+	<div class="row">
 		<h2>Update Bid</h2>
 	</div>
 
 	<div class="row">
 		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
+			<div class="form-group">
+				<label for="account" class="col-sm-2 control-label">account</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{account}" id="account" placeholder="Account" Class="col-4 input-field" maxlength="30">
+					<p class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="type" class="col-sm-2 control-label">type</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{type}" id="type" placeholder="Type" Class="col-4 input-field" maxlength="30">
+					<p class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="bidQuantity" class="col-sm-2 control-label">Bid Quantity<em><small>Numerical value.</small></em></label>
+				<div class="col-sm-10">
+					<input type="text" pattern="^[0-9]*.?[0-9]+$" th:field="*{bidQuantity}" id="bidQuantity" placeholder="Bid Quantity" Class="col-4 input-field" maxlength="30">
+					<p class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" href="/bidList/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Update BidList">
+				</div>
+			</div>
 		</form>
 	</div>
 
