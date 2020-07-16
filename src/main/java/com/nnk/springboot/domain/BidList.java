@@ -264,7 +264,7 @@ public class BidList {
         return sourceListId;
     }
 
-    public void setSourceListId(String sourceLListId) {
+    public void setSourceListId(String sourceListId) {
         this.sourceListId = sourceListId;
     }
 

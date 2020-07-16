@@ -80,9 +80,10 @@ public class TradeController {
             logger.error("updateTrade finish with error for trade : "+trade.getTradeId());
             return "trade/update";
         }
-
+        Trade tradeResult = tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         trade.setTradeId(id);
+        trade.setCreationDate(tradeResult.getCreationDate());
         trade.setRevisionDate(timestamp);
         tradeRepository.save(trade);
 

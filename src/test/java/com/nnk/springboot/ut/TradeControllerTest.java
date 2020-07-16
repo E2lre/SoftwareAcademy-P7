@@ -52,7 +52,7 @@ public class TradeControllerTest {
 
     //constantes de test
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-    int idDoubleConst = 1;
+    int tradeIDConst = 1;
     String accountConst = "Account";
     String typeConst = "Type";
     Double buyQuantityConst = 10d;
@@ -63,7 +63,7 @@ public class TradeControllerTest {
         trade = new Trade();
         trade.setCreationDate(timestamp);
         trade.setRevisionDate(timestamp);
-        trade.setTradeId(idDoubleConst);
+        trade.setTradeId(tradeIDConst);
         trade.setAccount(accountConst);
         trade.setType(typeConst);
         trade.setBuyQuantity(buyQuantityConst);
@@ -139,7 +139,7 @@ public class TradeControllerTest {
                 .content(asJsonString(trade))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .param("tradeId", String.valueOf(idDoubleConst))
+                .param("tradeId", String.valueOf(tradeIDConst))
                 .param("creationDate", String.valueOf(timestamp))
                 .param("revisionDate", String.valueOf(timestamp))
                 .param("account", String.valueOf(accountConst))
@@ -151,7 +151,7 @@ public class TradeControllerTest {
     }
     /*---------------------------------------- Post trade-------------------------------*/
     @Test
-     public void validate_giveAnIncorrectCurveIdFormat_errorIsReturn() throws Exception {
+     public void validate_giveAnIncorrectTradeIdFormat_errorIsReturn() throws Exception {
 
         //GIVEN : Give an exiting Trade
 
@@ -175,14 +175,14 @@ public class TradeControllerTest {
     public void updateTrade_giveAnExistingId_tradeIsUpdate() throws Exception {
 
         //GIVEN : Give an exiting trade
-
+        Mockito.when(tradeRepository.findById(tradeIDConst)).thenReturn(java.util.Optional.ofNullable(trade));
         Mockito.when(tradeRepository.save(any(Trade.class))).thenReturn(trade);
         //WHEN //THEN return the list
         mockMvc.perform(post("/trade/update/1")
                 .content(asJsonString(trade))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .param("tradeId", String.valueOf(idDoubleConst))
+                .param("tradeId", String.valueOf(tradeIDConst))
                 .param("creationDate", String.valueOf(timestamp))
                 .param("revisionDate", String.valueOf(timestamp))
                 .param("account", String.valueOf(accountConst))

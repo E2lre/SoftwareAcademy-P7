@@ -3,14 +3,14 @@ spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,LoginContr
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,HomeController,4,3,0,0,2,1,2,1,2,1
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,CurveController,24,197,0,4,0,40,2,10,2,8
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,UserController,24,204,0,4,0,41,2,10,2,8
-spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,TradeController,24,197,0,4,0,40,2,10,2,8
+spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,TradeController,36,213,0,4,0,43,3,10,3,8
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,RuleNameController,50,178,0,4,8,35,2,10,2,8
-spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,BidListController,12,3,0,0,6,1,6,1,6,1
+spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,BidListController,36,213,0,4,0,43,3,10,3,8
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.controllers,RatingController,50,178,0,4,8,35,2,10,2,8
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.services,MyAppUserDetailsService,28,3,0,0,5,1,1,1,1,1
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.config,MessageConfig,0,25,0,0,0,8,0,3,0,3
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.config,SecurityConfig,0,81,0,0,0,15,0,3,0,3
-spring-boot-skeleton : Tests unitaires,com.nnk.springboot.domain,BidList,205,0,6,0,82,0,49,0,46,0
+spring-boot-skeleton : Tests unitaires,com.nnk.springboot.domain,BidList,94,111,4,2,41,41,20,29,17,29
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.domain,Trade,87,108,4,2,38,40,19,28,16,28
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.domain,User,0,38,0,0,0,16,0,11,0,11
 spring-boot-skeleton : Tests unitaires,com.nnk.springboot.domain,Rating,15,38,0,0,6,17,1,11,1,11

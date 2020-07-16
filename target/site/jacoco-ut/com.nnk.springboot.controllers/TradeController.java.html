@@ -30,7 +30,7 @@ import java.sql.Timestamp;
     @RequestMapping(&quot;/trade/list&quot;)
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
+
 <span class="fc" id="L34">        logger.info(&quot;home start&quot;);</span>
 <span class="fc" id="L35">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
 <span class="fc" id="L36">        logger.info(&quot;home finish&quot;);</span>
@@ -46,7 +46,7 @@ import java.sql.Timestamp;
 
     @PostMapping(&quot;/trade/validate&quot;)
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
+
 <span class="fc" id="L50">        logger.info(&quot;validate start&quot;);</span>
 <span class="fc bfc" id="L51" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
 <span class="fc" id="L52">            Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
@@ -57,54 +57,52 @@ import java.sql.Timestamp;
 <span class="fc" id="L57">            logger.info(&quot;validate finish correctly for trade ID : &quot;+ trade.getTradeId());</span>
 <span class="fc" id="L58">            return &quot;redirect:/trade/list&quot;;</span>
         }
-<span class="fc" id="L60">        logger.error(&quot;validate finish with error for curvePoint : &quot;+ trade.getTradeId());</span>
+<span class="fc" id="L60">        logger.error(&quot;validate finish with error for Trade : &quot;+ trade.getTradeId());</span>
 <span class="fc" id="L61">        return &quot;trade/add&quot;;</span>
 
     }
 
     @GetMapping(&quot;/trade/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
-<span class="fc" id="L68">        logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
-<span class="pc" id="L69">        Trade trade = tradeRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id));</span>
-<span class="fc" id="L70">        model.addAttribute(&quot;trade&quot;, trade);</span>
-<span class="fc" id="L71">        logger.info(&quot;showUpdateForm finish&quot;);</span>
-<span class="fc" id="L72">        return &quot;trade/update&quot;;</span>
+<span class="fc" id="L67">         logger.info(&quot;showUpdateForm start for id &quot; + id);</span>
+<span class="pc" id="L68">        Trade trade = tradeRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id));</span>
+<span class="fc" id="L69">        model.addAttribute(&quot;trade&quot;, trade);</span>
+<span class="fc" id="L70">        logger.info(&quot;showUpdateForm finish&quot;);</span>
+<span class="fc" id="L71">        return &quot;trade/update&quot;;</span>
     }
 
     @PostMapping(&quot;/trade/update/{id}&quot;)
     public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-<span class="fc" id="L79">        logger.info(&quot; start for id &quot; + id);</span>
+<span class="fc" id="L77">         logger.info(&quot; start for id &quot; + id);</span>
 
-<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L82">            logger.error(&quot;updateTrade finish with error for trade : &quot;+trade.getTradeId());</span>
-<span class="fc" id="L83">            return &quot;trade/update&quot;;</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L80">            logger.error(&quot;updateTrade finish with error for trade : &quot;+trade.getTradeId());</span>
+<span class="fc" id="L81">            return &quot;trade/update&quot;;</span>
         }
+<span class="pc" id="L83">        Trade tradeResult = tradeRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id));</span>
+<span class="fc" id="L84">        Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
+<span class="fc" id="L85">        trade.setTradeId(id);</span>
+<span class="fc" id="L86">        trade.setCreationDate(tradeResult.getCreationDate());</span>
+<span class="fc" id="L87">        trade.setRevisionDate(timestamp);</span>
+<span class="fc" id="L88">        tradeRepository.save(trade);</span>
 
-<span class="fc" id="L86">        Timestamp timestamp = new Timestamp(System.currentTimeMillis());</span>
-        //trade.setCreationDate(timestamp);
-<span class="fc" id="L88">        trade.setRevisionDate(timestamp);</span>
-<span class="fc" id="L89">        tradeRepository.save(trade);</span>
+<span class="fc" id="L90">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
+<span class="fc" id="L91">        logger.info(&quot; finish&quot;);</span>
 
-<span class="fc" id="L91">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
-<span class="fc" id="L92">        logger.info(&quot; finish&quot;);</span>
-
-<span class="fc" id="L94">        return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L93">        return &quot;redirect:/trade/list&quot;;</span>
 
     }
 
     @GetMapping(&quot;/trade/delete/{id}&quot;)
     public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
-<span class="fc" id="L101">        logger.info(&quot; start for id &quot; + id);</span>
-<span class="pc" id="L102">        Trade trade = tradeRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id));</span>
-<span class="fc" id="L103">        tradeRepository.delete(trade);</span>
-<span class="fc" id="L104">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
-<span class="fc" id="L105">        logger.info(&quot; finish&quot;);</span>
+<span class="fc" id="L99">        logger.info(&quot; start for id &quot; + id);</span>
+<span class="pc" id="L100">        Trade trade = tradeRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id));</span>
+<span class="fc" id="L101">        tradeRepository.delete(trade);</span>
+<span class="fc" id="L102">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
+<span class="fc" id="L103">        logger.info(&quot; finish&quot;);</span>
 
-<span class="fc" id="L107">        return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L105">        return &quot;redirect:/trade/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

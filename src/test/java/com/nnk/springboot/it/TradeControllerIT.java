@@ -118,7 +118,7 @@ public class TradeControllerIT {
             assertThat(1).isEqualTo(1);
         }
     }
-    /*---------------------------------------- Post CurvePoint-------------------------------*/
+    /*---------------------------------------- Post trade-------------------------------*/
     @Test
     @WithMockUser(roles="USER")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -149,7 +149,7 @@ public class TradeControllerIT {
     @Test
     @WithMockUser(roles="USER")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void updatetrade_giveAnExistingId_tradeIsUpdate() throws Exception {
+    public void updateTrade_giveAnExistingId_tradeIsUpdate() throws Exception {
 
         //GIVEN : an existing trade id
         tradeRepository.save(trade);
@@ -173,7 +173,7 @@ public class TradeControllerIT {
     @Test
     @WithMockUser(roles="USER")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void updatetrade_giveAnInexistingId_errorIsReturn() throws Exception {
+    public void updateTrade_giveAnInexistingId_errorIsReturn() throws Exception {
         //GIVEN : Data base is Empty
 
         //WHEN call an inexisting ID

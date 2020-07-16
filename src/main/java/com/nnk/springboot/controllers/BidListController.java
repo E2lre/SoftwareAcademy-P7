@@ -80,9 +80,10 @@ public class BidListController {
             logger.error("updateTrade finish with error for trade : "+bidList.getBidListId());
             return "bidList/update";
         }
-
+        BidList bidListResult = bidListRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bid Id:" + id));
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         bidList.setBidListId(id);
+        bidList.setCreationDate(bidListResult.getCreationDate());
         bidList.setRevisionDate(timestamp);
         bidListRepository.save(bidList);
 

@@ -25,6 +25,7 @@ public class UserController {
     @Autowired
     private SecurityConfig securityConfig;
 
+
     @RequestMapping("/user/list")
     public String home(Model model)
     {
