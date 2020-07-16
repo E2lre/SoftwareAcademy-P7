@@ -21,7 +21,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import static com.nnk.springboot.ut.UserControllerTest.asJsonString;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -125,8 +125,8 @@ public class BidListControllerIT {
     public void validate_giveAnInexistingBidList_theBidListIsCreate() throws Exception {
         List<BidList> bidListStartList = new ArrayList<>();
         bidListStartList = bidListRepository.findAll();
-        //GIVEN : Give an exiting trade
-        //WHEN //THEN return the trade
+        //GIVEN : Give an exiting bidlist
+        //WHEN //THEN return the bidlist
         mockMvc.perform(post("/bidList/validate")
                 .content(asJsonString(bidList))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -150,7 +150,7 @@ public class BidListControllerIT {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void updateBidList_giveAnExistingId_BidListIsUpdate() throws Exception {
 
-        //GIVEN : an existing trade id
+        //GIVEN : an existing bidlist id
         bidListRepository.save(bidList);
         //WHEN call an existing ID
         // THEN return is OK

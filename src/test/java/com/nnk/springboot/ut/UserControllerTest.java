@@ -1,7 +1,7 @@
 package com.nnk.springboot.ut;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nnk.springboot.domain.CurvePoint;
+
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
@@ -14,16 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.sql.Timestamp;
@@ -31,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Optional;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,7 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-//@AutoConfigureMockMvc
 @AutoConfigureMockMvc(addFilters = false)
 @WebAppConfiguration
 public class UserControllerTest {
@@ -84,9 +77,7 @@ public class UserControllerTest {
     }
     /*------------------------------ Get ------------------------------*/
     @Test
-    //@WithMockUser(roles="USER")
-    //@WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
-    //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+
     public void home_sendModel_userListIsReturn() throws Exception {
         List<User> userList = new ArrayList<>();
 
@@ -103,8 +94,6 @@ public class UserControllerTest {
     }
     @Test
     public void addUser_getAddUser_redirectIsReturn() throws Exception {
-
-
         //GIVEN : Give an exiting Person
 
         //WHEN //THEN return the station
@@ -122,10 +111,7 @@ public class UserControllerTest {
 
     @Test
     public void showUpdateForm_giveAnExistingId_userIsReturn() throws Exception {
-
-
         //GIVEN : Give an exiting Person
-
 
         //GIVEN : Give an exiting Person
         Mockito.when(userRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(user));
@@ -135,13 +121,11 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
 
     }
-    //TODO faut il laisser ce test ? ==> Acreuser pour tester le cas non passant
-    @Test
-    public void showUpdateForm_giveAnInExistingId_userIsReturn() throws Exception {
 
+    @Test
+    public void showUpdateForm_giveAnInexistingId_userIsReturn() throws Exception {
 
         //GIVEN : Give an exiting Person
-
 
         //GIVEN : Give an exiting Person
         Mockito.when(userRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(user));
@@ -154,9 +138,7 @@ public class UserControllerTest {
    @Test
     public void deleteUser_giveAnExistingId_userIsDelete() throws Exception {
 
-
         //GIVEN : Give an exiting Person
-
 
         //GIVEN : Give an exiting Person
  //       Mockito.when(userRepository.findById(anyInt())).thenThrow(NullPointerException.class);
@@ -172,21 +154,12 @@ public class UserControllerTest {
     }
 /*------------------------------ Post ------------------------------*/
     @Test
-    //TODO A CREUSER : https://blog.codeleak.pl/2014/08/spring-mvc-test-assert-given-model-attribute-global-errors.html
-
- //   @Import(RequestValidator.class) //https://stackoverflow.com/questions/52001043/how-to-mock-bindingresult-in-spring-boot-test
     public void validate_giveAnInexistingUSER_theCUserIsCreate() throws Exception {
 
 
         //GIVEN : Give an Inexisting Person
-//        BindingResult result = new BindingResult();
-//        Model model = new Model();
-        //Mockito.when(curvePointRepository.save(curvePoint)).thenReturn(curvePoint);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
         //WHEN //THEN return user List
-/*        mockMvc.perform(post("/user/validate"))
-                .andDo(print())
-                .andExpect(status().isOk());*/
         mockMvc.perform(post("/user/validate")
                 .content(asJsonString(user))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -195,36 +168,19 @@ public class UserControllerTest {
                 .param("username", username)
                 .param("password", password)
                 .param("role", "USER"))
-/*                .param("fullname", "fullname")
-                .param("username", "user")
-                .param("password", "Abcdefg0$")
-                .param("role", "USER"))*/
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/user/list"));
-//https://stackoverflow.com/questions/55535796/how-to-write-a-test-for-a-controller-which-includes-errors-bindingresult
 
-        //              .andExpect(model().hasErrors())
-        //             .andExpect(model().attribute("success", true)) //https://stackoverflow.com/questions/41016228/spring-validator-does-not-trigger-in-integration-test
-        //              .andExpect(model().attributeHasFieldErrors(FORM_MODEL_NAME, "field"))
-        //              .andExpect(model().attributeHasFieldErrorCode(FORM_MODEL_NAME, "anotherfield", "error") //https://stackoverflow.com/questions/55535796/how-to-write-a-test-for-a-controller-which-includes-errors-bindingresult
-        //.andExpect(status().isOk())
-        //.andExpect(view().name("user/add"))
-
-
-        //TODO Regarder cela pour déclencher une erreur  : https://www.baeldung.com/spring-mvc-custom-validator au 9.4
     }
 
     @Test
-    //TODO A CREUSER : https://blog.codeleak.pl/2014/08/spring-mvc-test-assert-given-model-attribute-global-errors.html
-
-    //   @Import(RequestValidator.class) //https://stackoverflow.com/questions/52001043/how-to-mock-bindingresult-in-spring-boot-test
     public void validate_giveAnIncorrectFormatPasswaord_errorIsReturn() throws Exception {
 
 
         //GIVEN : Give an exiting Person
         Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
-        //WHEN //THEN return the station
+        //WHEN //THEN stay on page whith error for invalid password
 
         mockMvc.perform(post("/user/validate")
                 .content(asJsonString(user))
@@ -246,7 +202,7 @@ public class UserControllerTest {
         //GIVEN : Give an exiting Person
         Mockito.when(passwordEncoder.encode(anyString())).thenReturn(encryptPasswordConst);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
-        //WHEN //THEN return the station
+        //WHEN //THEN return the list updated of person
         mockMvc.perform(post("/user/update/1")
                 .content(asJsonString(user))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -265,7 +221,7 @@ public class UserControllerTest {
         //GIVEN : Give an exiting Person
         Mockito.when(passwordEncoder.encode(anyString())).thenReturn(encryptPasswordConst);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(user);
-        //WHEN //THEN return the station
+        //WHEN //THEN return stay on page with error
         mockMvc.perform(post("/user/update/1")
                 .content(asJsonString(user))
                 .contentType(MediaType.APPLICATION_JSON)

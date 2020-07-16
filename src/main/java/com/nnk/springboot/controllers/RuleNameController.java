@@ -1,8 +1,7 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Rating;
+
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,27 +23,40 @@ public class RuleNameController {
     @Autowired
     private RuleNameRepository ruleNameRepository;
 
-
-
+    /**
+     * Return the list of RuleName
+     * @param model RuleName List
+     * @return  new page to display
+     */
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
-        // TODO: find all RuleName, add to model
         logger.info("home start");
         model.addAttribute("ruleName", ruleNameRepository.findAll());
         logger.info("home finish");
         return "ruleName/list";
     }
 
+    /**
+     * Display the add RuleName page
+     * @param bid RuleName to add
+     * @return new page to display
+     */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName bid) {
         logger.info("Start / finish");
         return "ruleName/add";
     }
 
+    /**
+     * create a new RuleName
+     * @param ruleName RuleName to add
+     * @param result input information
+     * @param model RuleName List
+     * @return new page to display
+     */
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
         logger.info("validate start");
         if (!result.hasErrors()) {
             ruleNameRepository.save(ruleName);
@@ -56,9 +68,14 @@ public class RuleNameController {
         return "ruleName/add";
     }
 
+    /**
+     * Display the update RuleName page
+     * @param id ruleNameId to update
+     * @param model RuleName List
+     * @return new page to display
+     */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
         logger.info("showUpdateForm start for id " + id);
         try {
             RuleName ruleName = ruleNameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
@@ -72,10 +89,18 @@ public class RuleNameController {
         }
     }
 
+    /**
+     * Update RuleName
+     * @param id RuleNameId to update
+     * @param ruleName new RueleName datas
+     * @param result input information
+     * @param model RuleName List
+     * @return new page to display
+     */
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+
         logger.info("updateRating start for id " + id);
 
         if (result.hasErrors()) {
@@ -91,9 +116,15 @@ public class RuleNameController {
         return "redirect:/ruleName/list";
     }
 
+    /**
+     * Delete RuleName page
+     * @param id RuleNameid to delete
+     * @param model RuleName List after delete
+     * @return new page to display
+     */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+
         logger.info("deleteRating start for id " + id);
         try {
             RuleName ruleName = ruleNameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));

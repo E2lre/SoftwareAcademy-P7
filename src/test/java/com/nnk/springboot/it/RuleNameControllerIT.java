@@ -1,9 +1,7 @@
 package com.nnk.springboot.it;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
-import com.nnk.springboot.ut.RuleNameControllerTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
@@ -114,7 +111,7 @@ public class RuleNameControllerIT {
     @Test
     @WithMockUser(roles="USER")
     //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void validate_giveAnInexistingRuleName_theRuleNamegIsCreate() throws Exception {
+    public void validate_giveAnInexistingRuleName_theRuleNameIsCreate() throws Exception {
         List<RuleName> ruleNameList = new ArrayList<>();
         ruleNameList = ruleNameRepository.findAll();
 
@@ -144,7 +141,7 @@ public class RuleNameControllerIT {
     @Test
     public void updateRuleName_giveAnExistingId_ruleNameIsUpdate() throws Exception {
 
-        //GIVEN : an existing curvePoint id
+        //GIVEN : an existing ruleName id
         ruleNameRepository.save(ruleName);
         //WHEN call an existing ID
         // THEN return is OK

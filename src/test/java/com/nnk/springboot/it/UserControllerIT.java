@@ -76,8 +76,6 @@ public class UserControllerIT {
 
 
         //GIVEN : Give an Inexiting Person
-
-
         //WHEN call an inexisting ID
         // THEN return exception
         try {
@@ -93,11 +91,7 @@ public class UserControllerIT {
 
     @Test
     public void showUpdateForm_giveAnInExistingId_userIsReturn() throws Exception {
-
-
         //GIVEN : Give an exiting Person
-
-
 
         //WHEN //THEN return error
         try{
@@ -145,8 +139,6 @@ public class UserControllerIT {
 
        userRepository.save(user);
 
-
-
         user.setFullname(fullnameModify);
         //WHEN call an existing ID
         mockMvc.perform(post("/user/update/"+user.getId())
@@ -169,8 +161,6 @@ public class UserControllerIT {
     public void updateUser_giveAnInexistingId_errorIsReturn() throws Exception {
 
         //GIVEN : Give an Inexiting Person
-
-
 
         //WHEN call an Inexisting ID
         try {

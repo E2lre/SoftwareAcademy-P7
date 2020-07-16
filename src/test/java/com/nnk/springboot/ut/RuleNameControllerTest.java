@@ -1,8 +1,6 @@
 package com.nnk.springboot.ut;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +18,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +113,7 @@ public class RuleNameControllerTest {
     @Test
     public void deleteUser_giveAnExistingId_ruleNameIsDelete() throws Exception {
 
-        //GIVEN : Give an exiting Rating
+        //GIVEN : Give an exiting RuleName
         Mockito.when(ruleNameRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(ruleName));
         doNothing().when(ruleNameRepository).delete(any(RuleName.class));
 
@@ -134,7 +131,7 @@ public class RuleNameControllerTest {
     public void validate_giveAnInexistingRuleName_theRuleNameIsCreate() throws Exception {
 
 
-        //GIVEN : Give an exiting Rating
+        //GIVEN : Give an exiting RuleName
         Mockito.when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
         //WHEN //THEN return the list
         mockMvc.perform(post("/ruleName/validate")
@@ -154,7 +151,7 @@ public class RuleNameControllerTest {
     @Test
     public void validate_giveAnIncorrectOrderFormat_errorIsReturn() throws Exception {
 
-        //GIVEN : Give an exiting Rating
+        //GIVEN : Give an exiting RuleName
         Mockito.when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
         //WHEN //THEN return the add page
         mockMvc.perform(post("/ruleName/validate")
@@ -175,7 +172,7 @@ public class RuleNameControllerTest {
     @Test
     public void updateRating_giveAnExistingId_ruleNameIsUpdate() throws Exception {
 
-        //GIVEN : Give an exiting Rating
+        //GIVEN : Give an exiting RuleName
 
         Mockito.when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
         //WHEN //THEN return the List
@@ -197,7 +194,7 @@ public class RuleNameControllerTest {
     @Test
     public void updateRating_giveAnIncorrectValue_errorIsReturn() throws Exception {
 
-        //GIVEN : Give an exiting Rating
+        //GIVEN : Give an exiting RuleName
 
         Mockito.when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
         //WHEN //THEN return the update page

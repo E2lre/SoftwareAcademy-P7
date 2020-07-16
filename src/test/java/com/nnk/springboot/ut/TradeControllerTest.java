@@ -1,8 +1,6 @@
 package com.nnk.springboot.ut;
 
-import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -104,18 +102,7 @@ public class TradeControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-    //TODO vérifier ce test ....
-    @Test
-    public void showUpdateForm_giveAnInExistingId_tradeIsReturn() throws Exception {
 
-        //GIVEN : Give an exiting trade
-        Mockito.when(tradeRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(trade));
-        //WHEN //THEN return the station
-        mockMvc.perform(get("/trade/update/1"))
-                .andDo(print())
-                .andExpect(status().isOk());
-
-    }
     @Test
     public void deleteUser_giveAnExistingId_tradeIsDelete() throws Exception {
 

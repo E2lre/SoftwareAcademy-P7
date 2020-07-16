@@ -6,7 +6,6 @@ import com.nnk.springboot.repositories.CurvePointRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.nnk.springboot.ut.UserControllerTest.asJsonString;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -56,7 +52,6 @@ public class CurvePointControllerIT {
     public void setUpEach() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        //idDouble.doubleValue(1);
         curvePoint = new CurvePoint();
         curvePoint.setAsOfDate(timestamp);
         curvePoint.setCreationDate(timestamp);
@@ -131,9 +126,9 @@ public class CurvePointControllerIT {
         curvePointStartList = curvePointRepository.findAll();
 
 
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting curvePoint
 
-         //WHEN //THEN return the station
+         //WHEN //THEN return the curvepoint list
         mockMvc.perform(post("/curvePoint/validate")
                 .content(asJsonString(curvePoint))
                 .contentType(MediaType.APPLICATION_JSON)

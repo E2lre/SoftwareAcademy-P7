@@ -1,13 +1,13 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.validator.constraints.Length;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 
 @Entity
@@ -19,7 +19,6 @@ public class CurvePoint {
     private Integer id;
     @Column(name="CurveId")
     @NotNull(message = "{curvepoint.curveid.mandatory}")
-    //@Pattern(regexp = "[0-9]+",message="{curvepoint.curveid.numeric}")
     private Integer curveId;
     @Column(name="asOfDate")
     private Timestamp asOfDate;
@@ -61,11 +60,11 @@ public class CurvePoint {
     public Timestamp getAsOfDate() {
         Timestamp localTimestamp = asOfDate;
         return localTimestamp;
-        //return asOfDate;
+
     }
 
     public void setAsOfDate(Timestamp asOfDate) {
-        //this.asOfDate = asOfDate;
+
 
         if (asOfDate == null) {
             this.asOfDate = null;
@@ -84,7 +83,6 @@ public class CurvePoint {
         this.term = term;
     }
 
-    /*@Pattern(regexp="(?=.*d)", message="Numeric Field only")*/
     public Double getValue() {
         return value;
     }
@@ -94,13 +92,13 @@ public class CurvePoint {
     }
 
     public Timestamp getCreationDate() {
-        //return creationDate;
+
         Timestamp localTimestamp = creationDate;
         return localTimestamp;
     }
 
     public void setCreationDate(Timestamp creationDate) {
-        //this.creationDate = creationDate;
+
         if (creationDate == null) {
             this.creationDate = null;
         }

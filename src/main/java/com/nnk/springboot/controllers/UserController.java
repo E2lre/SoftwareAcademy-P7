@@ -25,7 +25,11 @@ public class UserController {
     @Autowired
     private SecurityConfig securityConfig;
 
-
+    /**
+     * Return the list of users
+     * @param model users list
+     * @return new page to display
+     */
     @RequestMapping("/user/list")
     public String home(Model model)
     {
@@ -35,34 +39,46 @@ public class UserController {
         return "user/list";
     }
 
+    /**
+     * Display the add user page
+     * @param bid user to add
+     * @return new page to display
+     */
     @GetMapping("/user/add")
     public String addUser(User bid) {
         logger.info("addUser start/finish");
         return "user/add";
     }
 
+    /**
+     * create a new user
+     * @param user user to add
+     * @param result input information
+     * @param model user list
+     * @return newpage to display
+     */
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model)  {
         logger.info("validate start");
 
         if (!result.hasErrors()) {
-  //              if (securityConfig.isPasswordValid(user.getPassword())){
                     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                     user.setPassword(encoder.encode(user.getPassword()));
                     userRepository.save(user);
                     model.addAttribute("users", userRepository.findAll());
                     logger.info("validate finish correctly for user : "+user.getUsername());
                     return "redirect:/user/list";
-    /*            } else {
-
-                    throw new Exception("Incorrect Password format");
-               }
-*/
-        }
+         }
         logger.error("validate finish with error for user : "+user.getUsername());
         return "user/add";
     }
 
+    /**
+     * Display the update user page
+     * @param id userid to update
+     * @param model information user to update
+     * @return newpage to display
+     */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.info("showUpdateForm start for id " + id);
@@ -73,6 +89,14 @@ public class UserController {
         return "user/update";
     }
 
+    /**
+     * Update a user
+     * @param id userid to update
+     * @param user new user datas
+     * @param result input information
+     * @param model user list
+     * @return new page to display
+     */
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -91,6 +115,12 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    /**
+     * Delete user
+     * @param id userid to delete
+     * @param model new list of user
+     * @return new page to display
+     */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
         logger.info("deleteUser start for id " + id);

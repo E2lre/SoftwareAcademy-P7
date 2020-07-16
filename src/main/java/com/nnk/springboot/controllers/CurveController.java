@@ -1,13 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.CurvePointRepository;
-import com.nnk.springboot.repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 @Controller
 public class CurveController {
@@ -27,6 +24,11 @@ public class CurveController {
     @Autowired
     private CurvePointRepository curvePointRepository;
 
+    /**
+     * Return the list of CrrvePoint
+     * @param model CurvePoint list
+     * @return new page to display
+     */
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
@@ -36,6 +38,11 @@ public class CurveController {
         return "curvePoint/list";
     }
 
+    /**
+     * Display the add CurvePoint page
+     * @param curvePoint Curvepoint to add
+     * @return new page to display
+     */
     @GetMapping("/curvePoint/add")
     public String addCurvePointForm(CurvePoint curvePoint) {
 
@@ -43,6 +50,13 @@ public class CurveController {
         return "curvePoint/add";
     }
 
+    /**
+     * create a new Curvepoint
+     * @param curvePoint Curvepoint to add
+     * @param result input information
+     * @param model CurvePoint list
+     * @return new page to display
+     */
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         logger.info("validate start");
@@ -59,6 +73,12 @@ public class CurveController {
         return "curvePoint/add";
     }
 
+    /**
+     * Display the update Curvepoint page
+     * @param id CurvePoint ID to update
+     * @param model CurvePoint list
+     * @return new page to display
+     */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
@@ -69,6 +89,14 @@ public class CurveController {
         return "curvePoint/update";
     }
 
+    /**
+     * Update Curvepoint
+     * @param id Curvepoint ID to updtate
+     * @param curvePoint new Curvepoint datas
+     * @param result input information
+     * @param model CurvePoint list
+     * @return new page to display
+     */
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
@@ -80,7 +108,6 @@ public class CurveController {
         }
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        //curvePoint.setAsOfDate(timestamp);
         curvePoint.setCreationDate(timestamp);
         curvePointRepository.save(curvePoint);
 
@@ -90,6 +117,12 @@ public class CurveController {
         return "redirect:/curvePoint/list";
     }
 
+    /**
+     * Delete Curvepoint
+     * @param id CurvePoint ID to delete
+     * @param model CurvePoint list
+     * @return new page to display
+     */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
 

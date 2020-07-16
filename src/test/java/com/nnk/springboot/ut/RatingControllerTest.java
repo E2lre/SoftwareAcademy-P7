@@ -1,8 +1,7 @@
 package com.nnk.springboot.ut;
 
-import com.nnk.springboot.domain.CurvePoint;
+
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +19,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,16 +110,7 @@ public class RatingControllerTest {
                 .andExpect(status().isOk());
 
     }
- /*   @Test
-    public void showUpdateForm_giveAnInExistingId_ratingIsReturn() throws Exception {
-        //GIVEN : Give an exiting Rating
-        Mockito.when(ratingRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(rating));
-        //WHEN //THEN return the station
-        mockMvc.perform(get("/rating/update/1"))
-                .andDo(print())
-                .andExpect(status().isOk());
 
-    }*/
     @Test
     public void deleteUser_giveAnExistingId_ratingIsDelete() throws Exception {
 

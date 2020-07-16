@@ -1,8 +1,7 @@
 package com.nnk.springboot.it;
 
-import com.nnk.springboot.domain.CurvePoint;
+
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,7 +138,7 @@ public class RatingControllerIT {
     @Test
     public void updateRating_giveAnExistingId_ratingIsUpdate() throws Exception {
 
-        //GIVEN : an existing curvePoint id
+        //GIVEN : an existing rating id
         ratingRepository.save(rating);
         //WHEN call an existing ID
         // THEN return is OK

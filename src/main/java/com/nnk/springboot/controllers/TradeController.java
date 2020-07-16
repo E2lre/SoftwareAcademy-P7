@@ -1,8 +1,7 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.CurvePoint;
+
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +25,11 @@ public class TradeController {
     @Autowired
     private TradeRepository tradeRepository;
 
-
+    /**
+     * Return the list of trade
+     * @param model trade list
+     * @return new page to display
+     */
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
@@ -37,6 +40,11 @@ public class TradeController {
         return "trade/list";
     }
 
+    /**
+     * Display the add trade page
+     * @param bid trade to add
+     * @return new page to display
+     */
     @GetMapping("/trade/add")
     public String addUser(Trade bid) {
 
@@ -44,6 +52,13 @@ public class TradeController {
         return "trade/add";
     }
 
+    /**
+     * create a new trade
+     * @param trade trade to add
+     * @param result input information
+     * @param model trade list
+     * @return new page to display
+     */
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
 
@@ -62,15 +77,29 @@ public class TradeController {
 
     }
 
+    /**
+     * Display the update trade page
+     * @param id trade id to update
+     * @param model trade list
+     * @return new page to display
+     */
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-         logger.info("showUpdateForm start for id " + id);
+        logger.info("showUpdateForm start for id " + id);
         Trade trade = tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         model.addAttribute("trade", trade);
         logger.info("showUpdateForm finish");
         return "trade/update";
     }
 
+    /**
+     *  Update trade
+     * @param id tradeid to update
+     * @param trade new trade datas
+     * @param result input information
+     * @param model trade list
+     * @return new page to display
+     */
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
@@ -94,6 +123,12 @@ public class TradeController {
 
     }
 
+    /**
+     * Delete trade page
+     * @param id tradeid to delete
+     * @param model trade list
+     * @return new page to display
+     */
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         logger.info(" start for id " + id);

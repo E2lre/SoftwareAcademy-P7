@@ -14,7 +14,6 @@ public class User {
     @NotBlank(message = "{user.usermane.mandatory}")
     private String username;
     @NotBlank(message = "{user.password.mandatory}")
-    //@Pattern(regexp = "\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])(?=\\S*?[@#$%^_&+=])\\S{8,}\\z",message="Incorrect format password")
     @Pattern(regexp = "\\A(?=\\S*?[0-9])(?=\\S*?[a-z])(?=\\S*?[A-Z])(?=\\S*?[@#$%^_&+=])\\S{8,}\\z",message="{user.password.format.incorrect}")
     private String password;
     @NotBlank(message = "{user.fullname.mandatory}")
@@ -37,7 +36,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public String getPassword() {
         return password;

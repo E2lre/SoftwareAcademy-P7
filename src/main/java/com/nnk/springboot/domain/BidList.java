@@ -1,18 +1,17 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bidlist")
 public class BidList {
-    // TODO: Map columns in data table BIDLIST with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -140,13 +139,13 @@ public class BidList {
     }
 
     public Timestamp getBidListDate() {
-        //return bidListDate;
+
         Timestamp localTimestamp = bidListDate;
         return localTimestamp;
     }
 
     public void setBidListDate(Timestamp bidListDate) {
-        //this.bidListDate = bidListDate;
+
         if (bidListDate == null) {
             this.bidListDate = null;
         }
@@ -204,13 +203,13 @@ public class BidList {
     }
 
     public Timestamp getCreationDate() {
-        //return creationDate;
+
         Timestamp localTimestamp = creationDate;
         return localTimestamp;
     }
 
     public void setCreationDate(Timestamp creationDate) {
-        //this.creationDate = creationDate;
+
         if (creationDate == null) {
             this.creationDate = null;
         }
@@ -229,13 +228,12 @@ public class BidList {
     }
 
     public Timestamp getRevisionDate() {
-        //return revisionDate;
+
         Timestamp localTimestamp = revisionDate;
         return localTimestamp;
     }
 
     public void setRevisionDate(Timestamp revisionDate) {
-        //this.revisionDate = revisionDate;
         if (revisionDate == null) {
             this.revisionDate = null;
         }

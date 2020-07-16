@@ -1,7 +1,6 @@
 package com.nnk.springboot.ut;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,22 +15,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.nnk.springboot.ut.UserControllerTest.asJsonString;
-import static org.hamcrest.Matchers.containsString;
+
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -41,7 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureTestDatabase
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class CurvePointControllerTest {
     private static final Logger logger = LogManager.getLogger(CurvePointControllerTest.class);
     @Autowired
@@ -62,7 +56,6 @@ public class CurvePointControllerTest {
     public void setUpEach() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-            //idDouble.doubleValue(1);
             curvePoint = new CurvePoint();
             curvePoint.setAsOfDate(timestamp);
             curvePoint.setCreationDate(timestamp);
@@ -121,10 +114,8 @@ public class CurvePointControllerTest {
     public void showUpdateForm_giveAnInExistingId_curvePontIsReturn() throws Exception {
 
 
-        //GIVEN : Give an exiting Person
-
-
-        //GIVEN : Give an exiting Person
+        //GIVEN : Give an exiting CurvePoint
+        //GIVEN : Give an exiting CurvePoint
         Mockito.when(curvePointRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(curvePoint));
         //WHEN //THEN return the station
         mockMvc.perform(get("/curvePoint/update/1"))
@@ -149,10 +140,6 @@ public class CurvePointControllerTest {
     }
     /*---------------------------------------- Post CurvePoint-------------------------------*/
     @Test
-    //@WithMockUser(roles="USER")
-    //@WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
-    //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-
     public void validate_giveAnInexistingCurvePoint_theCurvePointIsCreate() throws Exception {
 
 
@@ -176,15 +163,9 @@ public class CurvePointControllerTest {
     }
     /*---------------------------------------- Post CurvePoint-------------------------------*/
     @Test
-    //@WithMockUser(roles="USER")
-    //@WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
-    //@DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-
     public void validate_giveAnIncorrectCurveIdFormat_errorIsReturn() throws Exception {
 
-
         //GIVEN : Give an exiting CurvePoint
-
 
         Mockito.when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
         //WHEN //THEN return the add page

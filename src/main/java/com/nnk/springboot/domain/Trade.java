@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "trade")
 public class Trade {
-    // TODO: Map columns in data table TRADE with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -133,13 +132,13 @@ public class Trade {
     }
 
     public Timestamp getTradeDate() {
-        //return tradeDate;
+
         Timestamp localTimestamp = tradeDate;
         return localTimestamp;
     }
 
     public void setTradeDate(Timestamp tradeDate) {
-        //this.tradeDate = tradeDate;
+
         if (tradeDate == null) {
             this.tradeDate = null;
         }
@@ -189,13 +188,13 @@ public class Trade {
     }
 
     public Timestamp getCreationDate() {
-        //return creationDate;
+
         Timestamp localTimestamp = creationDate;
         return localTimestamp;
     }
 
     public void setCreationDate(Timestamp creationDate) {
-        //this.creationDate = creationDate;
+
         if (creationDate == null) {
             this.creationDate = null;
         }
@@ -213,13 +212,13 @@ public class Trade {
     }
 
     public Timestamp getRevisionDate() {
-        //return revisionDate;
+
         Timestamp localTimestamp = revisionDate;
         return localTimestamp;
     }
 
     public void setRevisionDate(Timestamp revisionDate) {
-        //this.revisionDate = revisionDate;
+
         if (revisionDate == null) {
             this.revisionDate = null;
         }

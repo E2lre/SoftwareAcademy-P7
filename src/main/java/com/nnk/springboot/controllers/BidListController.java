@@ -1,9 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.BidListRepository;
-import com.nnk.springboot.repositories.TradeRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,11 @@ public class BidListController {
     @Autowired
     private BidListRepository bidListRepository;
 
-
+    /**
+     * Return the list of BidList
+     * @param model Bidlist List
+     * @return new page to display
+     */
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
@@ -36,15 +38,26 @@ public class BidListController {
         return "bidList/list";
     }
 
+    /**
+     * Display the add BidList page
+     * @param bid BidList to add
+     * @return new page to display
+     */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
         logger.info("start /finish");
         return "bidList/add";
     }
 
+    /**
+     * create a new bidList
+     * @param bid BidList to add
+     * @param result input information
+     * @param model Bidlist List
+     * @return new page to display
+     */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
         logger.info("validate start");
         if (!result.hasErrors()) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -60,9 +73,14 @@ public class BidListController {
 
     }
 
+    /**
+     * Display the update BidList page
+     * @param id BidList ID to update
+     * @param model Bidlist List
+     * @return new page to display
+     */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
         logger.info(" start for id " + id);
         BidList bidList = bidListRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bid Id:" + id));
         model.addAttribute("bidList", bidList);
@@ -70,10 +88,17 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /**
+     * Update BidList
+     * @param id BidList ID to update
+     * @param bidList new BidList datas
+     * @param result input information
+     * @param model Bidlist List
+     * @return new page to display
+     */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
         logger.info(" start for id " + id);
 
         if (result.hasErrors()) {
@@ -93,10 +118,15 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /**
+     * Delete BidList
+     * @param id BidListID to delete
+     * @param model Bidlist List
+     * @return new page to display
+     */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
-        logger.info(" start for id " + id);
+       logger.info(" start for id " + id);
         BidList bidList = bidListRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid BidList Id:" + id));
         bidListRepository.delete(bidList);
         model.addAttribute("bidLists", bidListRepository.findAll());

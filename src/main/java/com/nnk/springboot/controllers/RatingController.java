@@ -1,8 +1,7 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.CurvePoint;
+
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 
 @Controller
 public class RatingController {
@@ -25,7 +23,11 @@ public class RatingController {
     @Autowired
     private RatingRepository ratingRepository;
 
-
+    /**
+     * Return the list of Rating
+     * @param model Rating list
+     * @return new page to display
+     */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
@@ -35,12 +37,24 @@ public class RatingController {
         return "rating/list";
     }
 
+    /**
+     * Display the add Rating page
+     * @param rating Rating to add
+     * @return new page to display
+     */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
         logger.info("Start / finish");
         return "rating/add";
     }
 
+    /**
+     * create a new Rating
+     * @param rating Rating  to add
+     * @param result input information
+     * @param model Rating List
+     * @return new page to display
+     */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
 
@@ -55,6 +69,12 @@ public class RatingController {
         return "rating/add";
     }
 
+    /**
+     * Display the update Rating page
+     * @param id Rating ID to update
+     * @param model Rating List
+     * @return new page to display
+     */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
@@ -71,6 +91,14 @@ public class RatingController {
         }
     }
 
+    /**
+     * Update Rating
+     * @param id RatingId to update
+     * @param rating new Rating datas
+     * @param result input information
+     * @param model Rating List
+     * @return new page to display
+     */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
@@ -90,6 +118,12 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
+    /**
+     * delete Rating
+     * @param id RatingID to delete
+     * @param model Rating List after delete
+     * @return new page to display
+     */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         logger.info("deleteRating start for id " + id);
